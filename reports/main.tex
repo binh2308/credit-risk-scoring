@@ -1,0 +1,262 @@
+\documentclass[a4paper, 12pt]{report}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T5]{fontenc}
+\usepackage[vietnamese]{babel}
+\usepackage{mathptmx}
+\usepackage[left=2.5cm, right=2cm, top=3cm, bottom=2.5cm]{geometry}
+\usepackage{indentfirst}
+\usepackage{setspace}
+\renewcommand{\baselinestretch}{1.3}
+
+\usepackage{amsmath, amsfonts, amssymb, latexsym}
+\usepackage{gensymb}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{wrapfig}
+\usepackage{subfig}
+\usepackage{enumitem}
+\setlist[itemize]{noitemsep, topsep=0pt}
+\usepackage[nopar]{lipsum}
+\usepackage{titlesec}
+\usepackage{soul}
+\usepackage{scrextend}
+\usepackage{etoolbox}
+\usepackage[bottom]{footmisc}
+\usepackage{xurl}
+
+\usepackage{tikz}
+\usetikzlibrary{calc}
+\usepackage{fancybox}
+\usepackage[raster]{tcolorbox}
+\usepackage{tabularray}
+\usepackage{array}
+\usepackage{longtable}
+\usepackage{tabularx}
+\usepackage{makecell}
+\usepackage{multirow}
+\usepackage{color, colortbl, xcolor}
+\usepackage{arydshln}
+
+\definecolor{Gray}{gray}{0.8}
+\definecolor{swotS}{RGB}{46,110,187}
+\definecolor{swotW}{RGB}{239,167,58}
+\definecolor{swotO}{RGB}{112,193,61}
+\definecolor{swotT}{RGB}{110,62,197}
+\definecolor{hcmutBlue}{RGB}{0, 60, 179}
+
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage[unicode]{hyperref}
+
+\hypersetup{
+    colorlinks=true,        % Bật tô màu cho các liên kết
+    citecolor=hcmutBlue,    % Màu của số trích dẫn [1], [2] (Xanh BK)
+    linkcolor=black,        % Màu của mục lục, hình ảnh (để đen cho trang trọng)
+    urlcolor=hcmutBlue      % Màu của đường link URL (Xanh BK cho đẹp)
+}
+
+\newcommand{\schoolHeader}{%
+    \begin{minipage}{0.1\textwidth}
+        % Chỗ này bạn có thể chèn Logo HCMUT nếu có file Images/HCMUT_Logo.png
+        % \includegraphics[width=1.2cm, height=1.2cm, keepaspectratio]{Images/HCMUT_Logo.png}
+    \end{minipage}%
+    \begin{minipage}{0.85\textwidth}
+        \bfseries\color{hcmutBlue}
+        Trường Đại Học Bách Khoa Tp.Hồ Chí Minh \\
+        Khoa Khoa Học \& Kỹ Thuật Máy Tính
+    \end{minipage}
+}
+
+\fancypagestyle{fancy}{
+    \fancyhf{}
+    \fancyhead[L]{\schoolHeader}
+    \fancyhead[R]{\small \slshape \leftmark}
+    \fancyfoot[L]{\small Báo cáo đồ án môn học: P4AI-DS}
+    \fancyfoot[R]{\small Trang \thepage/\pageref{LastPage}}
+    \renewcommand{\headrulewidth}{0.5pt}
+    \renewcommand{\footrulewidth}{0.5pt}
+}
+
+\fancypagestyle{plain}{
+    \fancyhf{}
+    \fancyhead[L]{\schoolHeader}
+    \fancyhead[R]{} 
+    \fancyfoot[L]{\small Báo cáo đồ án môn học: P4AI-DS}
+    \fancyfoot[R]{\small Trang \thepage/\pageref{LastPage}}
+    \renewcommand{\headrulewidth}{0.5pt}
+    \renewcommand{\footrulewidth}{0.5pt}
+}
+
+\pagestyle{fancy}
+\setlength{\headheight}{40pt}
+\addtolength{\topmargin}{-20pt}
+\renewcommand{\chaptermark}[1]{\markboth{\MakeUppercase{\chaptername\ \thechapter}}{}}
+
+\titleformat{\chapter}[display]
+  {\normalfont\bfseries\centering\fontsize{16}{19}\selectfont}
+  {\MakeUppercase{\chaptertitlename} \thechapter}
+  {0pt}
+  {\MakeUppercase}
+\titlespacing*{\chapter}{0pt}{18pt}{20pt}
+
+\titleformat{\section}
+  {\normalfont\bfseries\fontsize{14}{16}\selectfont}
+  {\thesection}
+  {1em}
+  {}
+\titlespacing*{\section}{0pt}{12pt}{6pt}
+
+\titleformat{\subsection}
+  {\normalfont\bfseries\fontsize{13}{15}\selectfont}
+  {\thesubsection}
+  {1em}
+  {}
+\titlespacing*{\subsection}{0pt}{6pt}{0pt}
+
+\usepackage[nopatch=footnote]{microtype}
+\usepackage{listings}
+
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegray},
+    keywordstyle=\color{blue},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{red},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showtabs=false,                  
+    tabsize=2
+}
+\lstset{style=mystyle}
+\renewcommand{\lstlistingname}{Đoạn mã}
+
+\usepackage[format=plain, font=large, labelfont=bf,textfont=it, justification=centering]{caption}
+\DeclareCaptionLabelFormat{vi-figure}{Hình #2}
+\DeclareCaptionLabelFormat{vi-table}{Bảng #2}
+\captionsetup[figure]{labelformat=vi-figure, labelsep=colon}
+\captionsetup[table]{labelformat=vi-table, labelsep=colon}
+
+\begin{document}
+
+% --- TRANG BÌA ---
+\begin{titlepage}
+\begin{tikzpicture}[remember picture, overlay]
+  \draw[line width=3pt] 
+    ($(current page.north west) + (2.0cm,-2.0cm)$) 
+    rectangle 
+    ($(current page.south east) + (-1.5cm,2.0cm)$);
+  \draw[line width=1pt] 
+    ($(current page.north west) + (2.15cm,-2.15cm)$) 
+    rectangle 
+    ($(current page.south east) + (-1.65cm,2.15cm)$);
+\end{tikzpicture}
+
+\begin{center}
+  \singlespacing 
+  
+  \vspace{-0.5cm}
+  
+  \textbf{\fontsize{13pt}{15pt}\selectfont ĐẠI HỌC QUỐC GIA THÀNH PHỐ HỒ CHÍ MINH}\\
+  \textbf{\fontsize{13pt}{15pt}\selectfont TRƯỜNG ĐẠI HỌC BÁCH KHOA}\\
+  \textbf{\fontsize{13pt}{15pt}\selectfont KHOA KHOA HỌC VÀ KỸ THUẬT MÁY TÍNH}
+  
+  \vspace{0.5cm}
+  
+  \includegraphics[width=3.5cm, keepaspectratio]{images/HCMUT_Logo.png}
+  
+  \vspace{0.5cm}
+  
+  \textbf{\fontsize{16pt}{19pt}\selectfont BÁO CÁO ĐỒ ÁN MÔN HỌC} \\
+  \vspace{0.2cm}
+  \fontsize{13pt}{15pt}\selectfont (Mã học phần: CO3135)
+  
+  \vspace{1cm}
+  
+  \rule{\textwidth}{1pt} \\[0.3cm]
+  \textbf{\fontsize{18pt}{22pt}\selectfont XÂY DỰNG HỆ THỐNG DỰ ĐOÁN RỦI RO TÍN DỤNG \\ DỰA TRÊN DỮ LIỆU THẺ TÍN DỤNG} \\[0.3cm]
+  \rule{\textwidth}{1pt}
+  
+  \vspace{1cm}
+  
+  \textbf{\fontsize{14pt}{17pt}\selectfont Ngành: KHOA HỌC MÁY TÍNH}
+  
+  \vspace{1cm}
+
+  \begin{tabular}{r l l}
+    \textbf{GVHD:} & Thầy Huỳnh Văn Thống & \\
+    & & \\ 
+    \textbf{SVTH:} & Phạm Thanh Phong & \textbf{2212564} \\
+                   & Hoàng Phương Bình & \textbf{22xxxxx} \\
+                   & Võ Lê Anh Nghĩa & \textbf{22xxxxx} \\
+                   & Lê Quang Trưng & \textbf{22xxxxx} \\
+                   & Vũ Xuân Chính & \textbf{22xxxxx} \\
+  \end{tabular}
+  
+  \vfill
+  
+  \fontsize{11pt}{15pt}\selectfont Thành phố Hồ Chí Minh, tháng 04 năm 2026
+  
+  \vspace{1.0cm}
+\end{center}
+\end{titlepage}
+
+\pagenumbering{roman}
+
+\tableofcontents
+
+\newpage
+\renewcommand{\listfigurename}{DANH SÁCH HÌNH VẼ}
+{
+  \let\oldnumberline\numberline
+  \renewcommand{\numberline}[1]{\figurename~#1~}
+  \listoffigures
+}
+
+\newpage
+\renewcommand{\listtablename}{DANH SÁCH BẢNG}
+{
+  \let\oldnumberline\numberline
+  \renewcommand{\numberline}[1]{\tablename~#1~}
+  \listoftables
+}
+
+\newpage
+\pagenumbering{arabic}
+
+\chapter{GIỚI THIỆU}
+\section{Lý do thực hiện đề tài}
+Trong quản lý tín dụng, việc xác định các khách hàng có khả năng vỡ nợ (default) là cực kỳ quan trọng để bảo vệ vốn và tối ưu hóa lợi nhuận cho ngân hàng.
+
+\section{Dataset nghiên cứu}
+Dự án sử dụng bộ dữ liệu Default of Credit Card Clients (Đài Loan) với thông tin của 30,000 khách hàng, bao gồm các biến về nhân khẩu học và lịch sử thanh toán nợ tín dụng.
+
+\chapter{PHƯƠNG PHÁP NGHIÊN CỨU}
+\section{Tiền xử lý và Làm sạch dữ liệu}
+Xử lý các sai sót trong mã hóa dữ liệu (Education, Marriage) và chuẩn hóa trạng thái thanh toán để tăng tính ổn định cho mô hình.
+
+\section{Tạo đặc trưng (Feature Engineering)}
+Xây dựng 16 đặc trưng mới tập trung vào tỷ lệ sử dụng hạn mức, xu hướng nợ và khả năng thanh toán bù đắp.
+
+\section{Xử lý dữ liệu mất cân bằng}
+Áp dụng kỹ thuật SMOTE (Synthetic Minority Over-sampling Technique) để giải quyết tình trạng chênh lệch giữa hai lớp khách hàng.
+
+\chapter{KẾT QUẢ VÀ THẢO LUẬN}
+\section{Huấn luyện mô hình}
+Sử dụng LightGBM và XGBoost, kết hợp với Optuna để tối ưu hóa siêu tham số tự động.
+
+\section{Đánh giá kết quả}
+Sử dụng độ đo ROC-AUC và Recall nhằm ưu tiên việc phát hiện đúng các khách hàng có rủi ro cao. Kết quả đạt được sự cải thiện rõ rệt so với mô hình Baseline Logistic Regression.
+
+\chapter{KẾT LUẬN}
+Dự án đã xây dựng thành công quy trình dự báo rủi ro tín dụng ổn định, có khả năng giải thích tốt nhờ vào phân tích SHAP và Feature Importance.
+
+\end{document}
