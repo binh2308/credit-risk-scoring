@@ -10,11 +10,20 @@ python -m venv .venv
 .venv\Scripts\activate
 
 ```
-Then, install the necessary dependencies in requirement.txt file:
+Then, install the necessary dependencies in requirements.txt file:
 
 ```bash
 pip install -r requirements.txt
 
 ```
+
+In root project, create the folder directory:
+
+```bash
+outputs/eda
+
+```
+to store EDA charts and pictures while the program is running (src/eda.py).
+
 
 Finally, run and explore the project !!!
