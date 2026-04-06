@@ -10,7 +10,7 @@ import seaborn as sns
 sns.set(style="whitegrid")
 plt.rcParams["figure.figsize"] = (8, 5)
 
-DATA_PATH = Path("data/processed/credit_risk_raw.csv")
+DATA_PATH = Path("data/processed/credit_risk_cleaned.csv")
 OUTPUT_DIR = Path("outputs/eda")
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
