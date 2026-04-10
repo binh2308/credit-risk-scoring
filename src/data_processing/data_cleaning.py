@@ -73,7 +73,8 @@ def create_features(df: pd.DataFrame):
     df['credit_util_ratio'] = df['credit_util_ratio'].clip(lower=0)
     
     # Payment Ratio
-    df['payment_ratio'] = df['PAY_AMT1'] / df['BILL_AMT2']
+    df['payment_ratio'] = (df['PAY_AMT1'] / df['BILL_AMT2']).clip(lower=0)
+    df['paid_full'] = (df['PAY_AMT1'] >= df['BILL_AMT2']).astype(int)
     
     # avoid with divide 0 
     df['payment_ratio'] = df['payment_ratio'].replace([np.inf, -np.inf], 0)
