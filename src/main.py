@@ -5,17 +5,17 @@ from pathlib import Path
 import optuna
 from sklearn.model_selection import train_test_split
 
-
 from data_processing.balance_data import apply_smote, create_sample
 from evaluation.compare import evaluate_model, plot_confusion, plot_feature_importance, plot_roc
 from models.train_model import lgb_model_train, objective_lgb, objective_xgb, xgb_model_train
+import models.model as model
 from utils import utils
 
 load_dotenv()
 BASE_DIR = utils.get_base_dir()
 INPUT_PATH =BASE_DIR / Path(os.getenv("INPUT_PROCESSED_PATH", "data/processed/")) / "credit_risk_cleaned.csv"
     
-def test():
+def main():
   df = utils.load_file(INPUT_PATH)
   X_train_full, X_test, y_train_full, y_test  = create_sample(df)
   X_train, X_val, y_train, y_val = train_test_split(X_train_full, y_train_full, test_size=0.2, random_state=42, stratify=y_train_full)
@@ -79,4 +79,6 @@ def test():
   plot_confusion(y_test, y_pred_lgb_best, "lgb_best", "LIGHTGBM Tuned")
 
 if __name__ == '__main__':
-  test()
+  main()
+  print("\n===== Task 6")
+  model.main()

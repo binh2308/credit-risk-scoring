@@ -9,9 +9,12 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import roc_auc_score, classification_report
 import joblib
 
+from utils.utils import get_base_dir
+
 # Define paths
-DATA_PATH = Path("data/processed/credit_risk_cleaned.csv")
-MODEL_DIR = Path("models")
+BASE_DIR = get_base_dir()
+DATA_PATH = BASE_DIR / ("data/processed/credit_risk_cleaned.csv")
+MODEL_DIR = BASE_DIR / Path("models")
 MODEL_DIR.mkdir(exist_ok=True)
 
 # Define columns
