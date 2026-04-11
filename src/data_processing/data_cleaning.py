@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 from pathlib import Path
 
 
@@ -61,6 +62,28 @@ def save_csv(df: pd.DataFrame, output_path: Path) -> None:
     df.to_csv(output_path, index=False, encoding="utf-8")
     print(f"\nDa luu CSV: {output_path}")
 
+def create_features(df: pd.DataFrame):
+    """
+        Task 5: create variables: 'credit_util_ratio', 'payment_ratio', 'late_payment_count'
+    """
+    df = df.copy()
+    
+    # Credit Utilization Ratio
+    df['credit_util_ratio'] = df['BILL_AMT1'] / df['LIMIT_BAL']
+    df['credit_util_ratio'] = df['credit_util_ratio'].clip(lower=0)
+    
+    # Payment Ratio
+    df['payment_ratio'] = (df['PAY_AMT1'] / df['BILL_AMT2']).clip(lower=0)
+    df['paid_full'] = (df['PAY_AMT1'] >= df['BILL_AMT2']).astype(int)
+    
+    # avoid with divide 0 
+    df['payment_ratio'] = df['payment_ratio'].replace([np.inf, -np.inf], 0)
+    df['payment_ratio'] = df['payment_ratio'].fillna(0)
+    
+    # calculate count late payment
+    pay_cols = [f'PAY_{count}' for count in range(7) if count != 1]
+    df['late_payment_count'] = (df[pay_cols] > 0).sum(axis = 1)
+    return df
 
 def main():
     input_path  = Path("data/processed/credit_risk_raw.csv")
@@ -73,6 +96,7 @@ def main():
 
     df = load_data(input_path)
 
+    df = create_features(df)
     df = clean_education(df)
     df = clean_marriage(df)
     df = clean_pay_status(df)

@@ -174,7 +174,7 @@ def main():
     '''
     Muốn xem phần nào thì bỏ comment phần đó, vì có thể sẽ tốn thời gian chạy nếu chạy hết tất cả các hàm EDA.
     '''
-    basic_overview(df)   ## Mô tả tổng quan về dữ liệu, bao gồm shape, head, dtypes, missing values, và thống kê mô tả.
+    # basic_overview(df)   ## Mô tả tổng quan về dữ liệu, bao gồm shape, head, dtypes, missing values, và thống kê mô tả.
     # plot_target_distribution(df)   ## Phân tích biến mục tiêu
     # analyze_categorical_features(df)      ##  Phân tích các biến quan trọng
     # analyze_numeric_features(df)     ## Các biến numeric nên xem histogram / boxplot
