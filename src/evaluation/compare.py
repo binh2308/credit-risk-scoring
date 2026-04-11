@@ -26,7 +26,7 @@ def plot_confusion(y_test, y_pred, filename, title="Confusion Matrix"):
     plt.savefig(OUTPUT_PATH / filename)
     plt.close()
 
-def plot_roc(y_test, y_proba_lgb, y_proba_xgb):
+def plot_roc(y_test, y_proba_lgb, y_proba_xgb, filename = "roc_curve"):
     fpr_lgb, tpr_lgb, _ = roc_curve(y_test, y_proba_lgb)
     fpr_xgb, tpr_xgb, _ = roc_curve(y_test, y_proba_xgb)
 
@@ -43,7 +43,7 @@ def plot_roc(y_test, y_proba_lgb, y_proba_xgb):
     plt.title("ROC Curve")
     plt.legend()
     plt.tight_layout()
-    plt.savefig(OUTPUT_PATH / "roc_curve.png")
+    plt.savefig(OUTPUT_PATH / f"{filename}.png")
     plt.close()
 
 def plot_feature_importance(model, X, filename="feature_importance"):

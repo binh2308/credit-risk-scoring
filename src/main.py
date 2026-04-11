@@ -47,15 +47,12 @@ def main():
   
   print("\n===== OPTUNA TUNING XGBOOST =====")
   study = optuna.create_study(direction="maximize")
-  study.optimize(lambda trial: objective_xgb(trial=trial, X_resample=X_train, y_resample=y_train, X_test=X_val, y_test=y_val), n_trials=50)
+  study.optimize(lambda trial: objective_xgb(trial=trial, X_resample=X_resample, y_resample=y_resample, X_test=X_val, y_test=y_val), n_trials=50)
   print("Best params:", study.best_params)
   print("Best validation ROC-AUC:", study.best_value)
   
   y_pred_xgb_best, y_proba_xgb_best, xgb_best_model= xgb_model_train(X_resample=X_resample, y_resample=y_resample, X_test=X_test, **study.best_params)
   print(evaluate_model(y_test, y_pred_xgb_best, y_proba_xgb_best))
-  
-  print("\n===== ROC =====")
-  plot_roc(y_test, y_proba_xgb, y_proba_xgb_best)
 
   print("\n===== CONFUSION MATRIX =====")
   plot_confusion(y_test, y_pred_xgb_best, "xgb_best", "XGBoost Tuned")
@@ -65,7 +62,7 @@ def main():
   
   print("\n===== OPTUNA TUNING LIGHTGBM =====")
   study = optuna.create_study(direction="maximize")
-  study.optimize(lambda trial: objective_lgb(trial=trial, X_resample=X_train, y_resample=y_train, X_test=X_val, y_test=y_val), n_trials=50)
+  study.optimize(lambda trial: objective_lgb(trial=trial, X_resample=X_resample, y_resample=y_resample, X_test=X_val, y_test=y_val), n_trials=50)
   print("Best params:", study.best_params)
   print("Best validation ROC-AUC:", study.best_value)
   
@@ -73,7 +70,7 @@ def main():
   print(evaluate_model(y_test, y_pred_lgb_best, y_proba_lgb_best))
   
   print("\n===== ROC =====")
-  plot_roc(y_test, y_proba_lgb, y_proba_lgb_best)
+  plot_roc(y_test, y_proba_lgb_best, y_proba_xgb_best, filename="roc_curve_best")
 
   print("\n===== CONFUSION MATRIX =====")
   plot_confusion(y_test, y_pred_lgb_best, "lgb_best", "LIGHTGBM Tuned")
