@@ -2,6 +2,9 @@ import os
 from dotenv import load_dotenv
 from pathlib import Path
 
+import matplotlib
+matplotlib.use('Agg')
+
 import optuna
 from sklearn.model_selection import train_test_split
 
@@ -20,7 +23,7 @@ def main():
     Train and evaluate credit risk prediction models using ensemble learning.
     
     Pipeline:
-        1. Load and split data into train/validation/test sets (80/10/10)
+        1. Load and split data into train/validation/test sets (64/16/20 split)
         2. Apply SMOTE balancing on training set only to avoid data leakage
         3. Train five models: Baseline, two default configurations, two optimized
         4. Evaluate and compare performance on test set
@@ -29,6 +32,12 @@ def main():
     # Load data and create train/test/validation splits
     df = utils.load_file(INPUT_PATH)
     X_train_full, X_test, y_train_full, y_test = create_sample(df)
+    
+    # Drop ID column to ensure all models use identical features
+    if 'ID' in X_train_full.columns:
+        X_train_full = X_train_full.drop('ID', axis=1)
+        X_test = X_test.drop('ID', axis=1)
+    
     X_train, X_val, y_train, y_val = train_test_split(
         X_train_full, y_train_full, test_size=0.2, random_state=42, stratify=y_train_full
     )
