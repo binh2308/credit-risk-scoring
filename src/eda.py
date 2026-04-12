@@ -69,6 +69,7 @@ def plot_target_distribution(df):
     plt.tight_layout()
     plt.savefig(OUTPUT_DIR / "target_distribution_countplot.png", dpi=300)
     plt.show()
+    plt.close()
 
     plt.figure(figsize=(6, 4))
     ax = sns.barplot(x=target_ratio.index, y=target_ratio.values)
@@ -80,6 +81,7 @@ def plot_target_distribution(df):
     plt.tight_layout()
     plt.savefig(OUTPUT_DIR / "target_distribution_percentage.png", dpi=300)
     plt.show()
+    plt.close()
 
 
 def analyze_categorical_features(df):
@@ -96,6 +98,7 @@ def analyze_categorical_features(df):
             plt.tight_layout()
             plt.savefig(OUTPUT_DIR / f"{col.lower()}_distribution.png", dpi=300)
             plt.show()
+            plt.close()
 
             plt.figure(figsize=(7, 4))
             sns.barplot(x=col, y=TARGET, data=df, estimator=np.mean)
@@ -104,6 +107,7 @@ def analyze_categorical_features(df):
             plt.tight_layout()
             plt.savefig(OUTPUT_DIR / f"default_rate_by_{col.lower()}.png", dpi=300)
             plt.show()
+            plt.close()
 
 
 def analyze_numeric_features(df):
@@ -121,6 +125,7 @@ def analyze_numeric_features(df):
             plt.tight_layout()
             plt.savefig(OUTPUT_DIR / f"hist_{col.lower()}.png", dpi=300)
             plt.show()
+            plt.close()
 
             plt.figure(figsize=(7, 4))
             sns.boxplot(x=df[col])
@@ -128,6 +133,7 @@ def analyze_numeric_features(df):
             plt.tight_layout()
             plt.savefig(OUTPUT_DIR / f"box_{col.lower()}.png", dpi=300)
             plt.show()
+            plt.close()
 
 
 def correlation_analysis(df):
@@ -139,6 +145,7 @@ def correlation_analysis(df):
     plt.tight_layout()
     plt.savefig(OUTPUT_DIR / "correlation_heatmap_full.png", dpi=300)
     plt.show()
+    plt.close()
 
     bill_amt_cols = ["BILL_AMT1", "BILL_AMT2", "BILL_AMT3", "BILL_AMT4", "BILL_AMT5", "BILL_AMT6"]
     available_bill_cols = [col for col in bill_amt_cols if col in df.columns]
@@ -152,6 +159,7 @@ def correlation_analysis(df):
         plt.tight_layout()
         plt.savefig(OUTPUT_DIR / "bill_amt_heatmap.png", dpi=300)
         plt.show()
+        plt.close()
 
         threshold = 0.90
         print("\n===== HIGHLY CORRELATED BILL_AMT PAIRS =====")

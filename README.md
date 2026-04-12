@@ -1,51 +1,95 @@
 # Credit Risk Scoring v2 - Advanced Ensemble Pipeline
 
-This project builds an advanced credit risk scoring pipeline using state-of-the-art ensemble techniques (LightGBM, XGBoost) and optimized feature engineering based on the UCI Default of Credit Card Clients dataset.
+This project implements an end-to-end machine learning pipeline for credit risk scoring using the UCI "Default of Credit Card Clients" dataset. It leverages advanced ensemble models (LightGBM, XGBoost), SMOTE for imbalanced data handling, and Optuna for automated hyperparameter tuning.
 
-## References & Methodology
+## 🚀 Key Features
 
-### Ensemble Methodology
+- **Robust Data Cleaning**: Handling categorical inconsistencies and payment status anomalies.
+- **Advanced Feature Engineering**: Creation of intuitive financial ratios (Credit Utilization, Payment Ratio) and behavioral indicators.
+- **Imbalance Handling**: Using SMOTE (Synthetic Minority Over-sampling Technique) to balance target classes (Default vs. Non-Default).
+- **Automated Tuning**: Bayesian optimization via Optuna to find optimal hyperparameters for LightGBM and XGBoost.
+- **Comprehensive Evaluation**: Comparison between Baseline (Logistic Regression) and Advanced Models using ROC-AUC, F1-Score, and Precision-Recall metrics.
 
-- **Innovations in Credit Default Prediction (2024)**: [arXiv:2402.17979](https://arxiv.org/pdf/2402.17979)
-  Justifies why Boosting models like LightGBM and XGBoost remain superior for credit default tasks compared to deep learning or traditional linear models.
+## 🛠 Technology Stack
 
-### Categorical Feature Handling
+- **Data Processing**: `pandas`, `numpy`, `scikit-learn`
+- **Imbalance Handling**: `imbalanced-learn` (SMOTE)
+- **Modeling**: `lightgbm`, `xgboost`, `scikit-learn` (Logistic Regression)
+- **Hyperparameter Tuning**: `optuna`
+- **Visualization**: `matplotlib`, `seaborn`
+- **Reporting**: `LaTeX` (source files in `reports/`)
 
-- **XGBoost Categorical Support**: [Documentation](https://xgboost.readthedocs.io/en/stable/tutorials/categorical.html) - Native support for categorical variables.
-- **LightGBM Advanced Topics**: [Documentation](https://lightgbm.readthedocs.io/en/latest/Advanced-Topics.html) - Native categorical splitting often outperforms one-hot encoding.
-- **CatBoost Features**: [Documentation](https://catboost.ai/docs/en/features/categorical-features) - Optimized internal handling of categorical data.
+## 📂 Project Structure
 
-### Benchmarks & Structures
+```text
+credit-risk-scoring-v2/
+├── data/
+│   ├── raw/             # Original dataset (.xls)
+│   └── processed/       # Cleaned and engineered datasets (.csv)
+├── models/              # Saved model checkpoints (.pkl)
+├── reports/             # Technical report (LaTeX source)
+├── src/
+│   ├── data_processing/ # Scripts for loading, cleaning, and balancing data
+│   ├── models/          # Model definitions and training logic
+│   ├── evaluation/      # Evaluation metrics and plotting logic
+│   ├── utils/           # Shared utility functions
+│   ├── eda.py           # Exploratory Data Analysis script
+│   └── main.py          # Central execution entry point
+├── requirements.txt     # Project dependencies
+└── README.md            # Project overview
+```
 
-- **Kaggle Benchmark**: [Default of Credit Card Clients - Predictive Models](https://www.kaggle.com/code/gpreda/default-of-credit-card-clients-predictive-models)
-- **GitHub reference**: [arashshams/Credit_Card_Customer_Default](https://github.com/arashshams/Credit_Card_Customer_Default)
+## ⚙️ Setup & Installation
 
-## Getting Started
-
-1. Create virtual environment:
-
+1. **Clone the repository**:
    ```bash
-   python -m venv .venv
-   .venv\Scripts\activate
+   git clone <repository-url>
+   cd credit-risk-scoring-v2
    ```
 
-2. Install dependencies:
+2. **Create and Activate a Virtual Environment**:
+   ```bash
+   python -m venv .venv
+   # Windows:
+   .venv\Scripts\activate
+   # Linux/macOS:
+   source .venv/bin/activate
+   ```
 
+3. **Install Dependencies**:
    ```bash
    pip install -r requirements.txt
    ```
 
-3. Setup output directories:
+## 📈 Execution Workflow
 
-   ```bash
-   mkdir -p outputs/eda
-   ```
+The project is designed to be executed in stages. You can run individual components or the full pipeline.
 
-4. Run the pipeline stages in `src/`.
+### Step 1: Data Preparation
+```bash
+python src/data_processing/load_data.py
+python src/data_processing/data_cleaning.py
+```
+*Creates `credit_risk_raw.csv` and `credit_risk_cleaned.csv` respectively.*
 
-## Proposed Models
+### Step 2: Exploratory Data Analysis (Optional)
+```bash
+python src/eda.py
+```
+*Generates distribution plots and correlation heatmaps in `outputs/eda/`.*
 
-- Logistic Regression (Baseline)
-- Random Forest
-- LightGBM (Native Categorical)
-- XGBoost (Native Categorical)
+### Step 3: Run Full Pipeline (Baseline + Advanced + Tuning)
+```bash
+cd src
+python main.py
+```
+*This script performs data splitting, SMOTE resampling, trains LightGBM/XGBoost, executes Optuna tuning, and saves evaluation plots to `outputs/compares/`.*
+
+## 📊 Results Summary
+
+The pipeline evaluates models primarily based on **ROC-AUC** to measure the ability to distinguish between default and non-default clients. 
+
+- **Baseline**: Logistic Regression on original imbalanced data.
+- **Advanced**: XGBoost and LightGBM on SMOTE-balanced data with optimized parameters.
+
+Detailed metrics and plots can be found in the `outputs/` directory after execution.
