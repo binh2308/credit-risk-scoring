@@ -339,7 +339,7 @@ Dưới đây là bảng so sánh toàn diện hiệu năng của 5 mô hình tr
 
 \subsection{Nhận xét về kết quả}
 \begin{itemize}
-    \item \textbf{LightGBM (Tuned)} đạt điểm ROC-AUC cao nhất: \textbf{0.7606}, vượt trội so với baseline 1.74 điểm phần trăm (0.7432 → 0.7606) và so với mô hình Default 0.58 điểm phần trăm (0.7550 → 0.7606).
+    \item \textbf{LightGBM (Tuned)} đạt điểm ROC-AUC cao nhất: \textbf{0.7606}, vượt trội so với baseline 1.30 điểm phần trăm (0.7476 → 0.7606) và so với mô hình Default 0.60 điểm phần trăm (0.7546 → 0.7606).
     \item \textbf{Recall của XGBoost (Tuned)} là cao nhất (0.5704), nghĩa là mô hình này bắt được 57\% số lượng khách hàng thực tế sẽ vỡ nợ. Điều này rất quan trọng vì trong ngân hàng, False Negative (bỏ sót khách hàng nguy hiểm) có chi phí cao hơn False Positive.
     \item \textbf{Precision của LightGBM (Tuned)} cao hơn (0.4816), giảm thiểu được sai sót loại I (dự báo sai người không vỡ nợ).
     \item Sự cải thiện sau Optuna tuning (+0.5\% ROC-AUC) cho thấy hiệu quả của phương pháp tìm kiếm siêu tham số thông minh.
@@ -489,7 +489,7 @@ Dự án đã thực thi thành công một quy trình hoàn chỉnh để giả
 \section{Ứng dụng Thực Tế}
 Mô hình LightGBM (Tuned) được đề xuất để triển khai vào hệ thống thẩm định tự động của ngân hàng với những lợi ích:
 \begin{itemize}
-    \item Cho phép xác định chính xác hơn 76\% những khách hàng có nguy cơ vỡ nợ.
+    \item Với ROC-AUC = 0.7606, mô hình cho thấy khả năng phân biệt tương đối tốt giữa khách hàng có nguy cơ vỡ nợ và khách hàng không vỡ nợ, từ đó hỗ trợ ưu tiên rà soát các hồ sơ rủi ro cao.
     \item Hỗ trợ quyết định cấp hạn mức tín dụng cá nhân hóa dựa trên xác suất vỡ nợ dự báo.
     \item Giảm tỷ lệ nợ xấu thông qua sàng lọc khách hàng aggressively trước cấp tín dụng.
 \end{itemize}

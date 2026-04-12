@@ -45,6 +45,9 @@ def main():
     # Balance training data using SMOTE
     X_resample, y_resample = apply_smote(X_train=X_train, y_train=y_train)
     
+    # For tuned models: apply SMOTE on full training set for retraining with best params
+    X_resample_full, y_resample_full = apply_smote(X_train=X_train_full, y_train=y_train_full)
+    
     # Initialize containers for results
     all_results = []
     all_probas = {}
@@ -90,7 +93,7 @@ def main():
         n_trials=30
     )
     y_pred_xgb_best, y_proba_xgb_best, xgb_best_model = xgb_model_train(
-        X_resample=X_resample, y_resample=y_resample, X_test=X_test, 
+        X_resample=X_resample_full, y_resample=y_resample_full, X_test=X_test, 
         **study_xgb.best_params
     )
     metrics_xgb_best = evaluate_model(y_test, y_pred_xgb_best, y_proba_xgb_best)
@@ -109,7 +112,7 @@ def main():
         n_trials=30
     )
     y_pred_lgb_best, y_proba_lgb_best, lgb_best_model = lgb_model_train(
-        X_resample=X_resample, y_resample=y_resample, X_test=X_test, 
+        X_resample=X_resample_full, y_resample=y_resample_full, X_test=X_test, 
         **study_lgb.best_params
     )
     metrics_lgb_best = evaluate_model(y_test, y_pred_lgb_best, y_proba_lgb_best)
