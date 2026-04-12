@@ -7,6 +7,7 @@ from sklearn.model_selection import train_test_split
 
 from data_processing.balance_data import apply_smote, create_sample
 from evaluation.compare import evaluate_model, plot_confusion, plot_feature_importance, plot_roc
+from evaluation.explainability import generate_shap_summary
 from models.train_model import lgb_model_train, objective_lgb, objective_xgb, xgb_model_train
 import models.model as model
 from utils import utils
@@ -59,6 +60,10 @@ def main():
 
   print("\n===== FEATURE IMPORTANCE =====")
   plot_feature_importance(xgb_best_model, X_train, "feature_import_best")
+
+  print("\n===== SHAP EXPLAINABILITY =====")
+  shap_path = generate_shap_summary(xgb_best_model, X_train, filename="shap_summary_xgb_best")
+  print(f"Saved SHAP summary to: {shap_path}")
   
   print("\n===== OPTUNA TUNING LIGHTGBM =====")
   study = optuna.create_study(direction="maximize")

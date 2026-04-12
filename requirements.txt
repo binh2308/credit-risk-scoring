@@ -11,3 +11,6 @@ lightgbm
 catboost
 optuna
 shap
+imblearn
+python-dotenv
+joblib
