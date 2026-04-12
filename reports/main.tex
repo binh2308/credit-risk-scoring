@@ -298,9 +298,9 @@ Dựa trên luận điểm của các hệ thống chấm điểm tín dụng hi
     
     \item \textbf{Tần suất chậm nợ (\texttt{late\_payment\_count}):} 
     \begin{equation}
-        \text{Late\_Count} = \sum_{i=0, i \neq 1}^{6} [\text{PAY\_i} > 0]
+        \text{Late\_Count} = \sum_{i \in \{0,2,3,4,5,6\}} [\text{PAY\_i} > 0]
     \end{equation}
-    Đếm số lượng tháng mà khách hàng có trạng thái chậm thanh toán trong quá khứ.
+    Đếm số lượng trường lịch sử trạng thái thanh toán (\texttt{PAY\_0}, \texttt{PAY\_2} đến \texttt{PAY\_6}) mà khách hàng có trạng thái chậm thanh toán.
 \end{enumerate}
 
 \section{Giải quyết mất cân bằng bằng SMOTE}
