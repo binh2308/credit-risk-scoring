@@ -7,8 +7,9 @@ def lgb_model_train(X_resample, y_resample, X_test, **params):
     n_estimators=200,
     learning_rate=0.05,
     max_depth=6,
-    random_state=42
-  ) if not params else LGBMClassifier(**params,random_state=42)
+    random_state=42,
+    n_jobs=2
+  ) if not params else LGBMClassifier(**params, random_state=42, n_jobs=2)
   
   lgb_model.fit(X_resample, y_resample)
   y_pred = lgb_model.predict(X_test)
@@ -21,8 +22,9 @@ def xgb_model_train(X_resample, y_resample, X_test, **params):
     learning_rate=0.05,
     max_depth=6,
     random_state=42,
-    eval_metric='logloss'
-  ) if not params else XGBClassifier(**params, random_state=42, eval_metric='logloss')
+    eval_metric='logloss',
+    n_jobs=2
+  ) if not params else XGBClassifier(**params, random_state=42, eval_metric='logloss', n_jobs=2)
   
   xgb_model.fit(X_resample, y_resample)
   y_pred = xgb_model.predict(X_test)
@@ -47,7 +49,7 @@ def train_without_smote(X_train, y_train, X_test):
 
 def objective_xgb(trial, X_resample, y_resample, X_test, y_test):
   params = {
-    "max_depth": trial.suggest_int("max_depth", 3, 10),
+    "max_depth": trial.suggest_int("max_depth", 3, 8),
     "learning_rate": trial.suggest_float("learning_rate", 0.01, 0.3),
     "n_estimators": trial.suggest_int("n_estimators", 100, 400),
     "subsample": trial.suggest_float("subsample", 0.6, 1.0),
@@ -61,7 +63,7 @@ def objective_xgb(trial, X_resample, y_resample, X_test, y_test):
 
 def objective_lgb(trial, X_resample, y_resample, X_test, y_test):
   params = {
-    "max_depth": trial.suggest_int("max_depth", 3, 10),
+    "max_depth": trial.suggest_int("max_depth", 3, 8),
     "learning_rate": trial.suggest_float("learning_rate", 0.01, 0.3),
     "n_estimators": trial.suggest_int("n_estimators", 100, 400),
     "subsample": trial.suggest_float("subsample", 0.6, 1.0),
