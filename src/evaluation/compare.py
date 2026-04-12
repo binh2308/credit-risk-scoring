@@ -2,8 +2,6 @@ import os
 from pathlib import Path
 from dotenv import load_dotenv
 from sklearn.metrics import roc_auc_score, f1_score, recall_score, precision_score, roc_curve, auc, confusion_matrix, ConfusionMatrixDisplay
-import matplotlib
-matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 from utils import utils
 
