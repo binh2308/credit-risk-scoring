@@ -339,7 +339,7 @@ Dưới đây là bảng so sánh toàn diện hiệu năng của 5 mô hình tr
 
 \subsection{Nhận xét về kết quả}
 \begin{itemize}
-    \item \textbf{LightGBM (Tuned)} đạt điểm ROC-AUC cao nhất: \textbf{0.7606}, vượt trội so với baseline tới 1.30\% và so với mô hình Default lên tới 0.60\%.
+    \item \textbf{LightGBM (Tuned)} đạt điểm ROC-AUC cao nhất: \textbf{0.7606}, vượt trội so với baseline 1.74 điểm phần trăm (0.7432 → 0.7606) và so với mô hình Default 0.58 điểm phần trăm (0.7550 → 0.7606).
     \item \textbf{Recall của XGBoost (Tuned)} là cao nhất (0.5704), nghĩa là mô hình này bắt được 57\% số lượng khách hàng thực tế sẽ vỡ nợ. Điều này rất quan trọng vì trong ngân hàng, False Negative (bỏ sót khách hàng nguy hiểm) có chi phí cao hơn False Positive.
     \item \textbf{Precision của LightGBM (Tuned)} cao hơn (0.4816), giảm thiểu được sai sót loại I (dự báo sai người không vỡ nợ).
     \item Sự cải thiện sau Optuna tuning (+0.5\% ROC-AUC) cho thấy hiệu quả của phương pháp tìm kiếm siêu tham số thông minh.
@@ -467,8 +467,8 @@ Khoảng 54\% khách hàng quỵt nợ thực tế được phát hiện sớm, 
 \begin{figure}[H]
     \centering
     % \includegraphics[width=0.8\textwidth]{outputs/compares/feature_importance_best.png}
-    \caption{Top 10 đặc trưng quan trọng nhất theo mô hình XGBoost (Tuned) - Khẳng định giá trị Feature Engineering}
-    \label{fig:feature_imp_xgb_tuned}
+    \caption{Top 10 đặc trưng quan trọng nhất theo mô hình LightGBM (Tuned) - Khẳng định giá trị Feature Engineering}
+    \label{fig:feature_imp_lgb_tuned}
 \end{figure}
 
 \chapter{KẾT LUẬN}

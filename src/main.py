@@ -135,8 +135,9 @@ def main():
     # Generate feature importance plot from best model (LightGBM Tuned)
     plot_feature_importance(lgb_best_model, X_train, "feature_importance_best.png")
 
+    from evaluation.compare import OUTPUT_PATH
     print("\n" + "="*70)
-    print("Evaluation complete. Results saved to: outputs/compares/")
+    print(f"Evaluation complete. Results saved to: {OUTPUT_PATH}")
     print("="*70 + "\n")
 
 if __name__ == '__main__':

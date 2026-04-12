@@ -52,30 +52,30 @@ def train_without_smote(X_train, y_train, X_test):
     return y_pred, y_proba
 
 def objective_xgb(trial, X_resample, y_resample, X_test, y_test):
-  params = {
-    "max_depth": trial.suggest_int("max_depth", 3, 8),
-    "learning_rate": trial.suggest_float("learning_rate", 0.01, 0.3),
-    "n_estimators": trial.suggest_int("n_estimators", 100, 400),
-    "subsample": trial.suggest_float("subsample", 0.6, 1.0),
-    "colsample_bytree": trial.suggest_float("colsample_bytree", 0.6, 1.0),
-  }
-  
-  _, y_proba, __= xgb_model_train(X_resample=X_resample, y_resample=y_resample,X_test=X_test, **params)
-  
-  score = roc_auc_score(y_test, y_proba)
-  return score
+    params = {
+        "max_depth": trial.suggest_int("max_depth", 3, 8),
+        "learning_rate": trial.suggest_float("learning_rate", 0.01, 0.3),
+        "n_estimators": trial.suggest_int("n_estimators", 100, 400),
+        "subsample": trial.suggest_float("subsample", 0.6, 1.0),
+        "colsample_bytree": trial.suggest_float("colsample_bytree", 0.6, 1.0),
+    }
+    
+    _, y_proba, __= xgb_model_train(X_resample=X_resample, y_resample=y_resample,X_test=X_test, **params)
+    
+    score = roc_auc_score(y_test, y_proba)
+    return score
 
 def objective_lgb(trial, X_resample, y_resample, X_test, y_test):
-  params = {
-    "max_depth": trial.suggest_int("max_depth", 3, 8),
-    "learning_rate": trial.suggest_float("learning_rate", 0.01, 0.3),
-    "n_estimators": trial.suggest_int("n_estimators", 100, 400),
-    "subsample": trial.suggest_float("subsample", 0.6, 1.0),
-    "feature_fraction": trial.suggest_float("feature_fraction", 0.6, 1.0),
-  }
-  
-  _, y_proba, _ = lgb_model_train(X_resample=X_resample, y_resample=y_resample,X_test=X_test, **params)
-  
-  score = roc_auc_score(y_test, y_proba)
-  return score
+    params = {
+        "max_depth": trial.suggest_int("max_depth", 3, 8),
+        "learning_rate": trial.suggest_float("learning_rate", 0.01, 0.3),
+        "n_estimators": trial.suggest_int("n_estimators", 100, 400),
+        "subsample": trial.suggest_float("subsample", 0.6, 1.0),
+        "feature_fraction": trial.suggest_float("feature_fraction", 0.6, 1.0),
+    }
+    
+    _, y_proba, _ = lgb_model_train(X_resample=X_resample, y_resample=y_resample,X_test=X_test, **params)
+    
+    score = roc_auc_score(y_test, y_proba)
+    return score
 
