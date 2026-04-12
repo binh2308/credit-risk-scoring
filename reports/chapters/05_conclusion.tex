@@ -1,0 +1,107 @@
+% Chương này tổng hợp kết quả, khuyến nghị thực tiễn, giới hạn, và hướng phát triển
+\chapter{KẾT LUẬN}
+
+\section{Các Kết Quả Chính}
+
+Dự án đã thực thi thành công một quy trình hoàn chỉnh để giải quyết bài toán dự báo rủi ro tín dụng. Những đạt được chính bao gồm:
+
+\begin{itemize}
+
+    \item \textbf{ROC-AUC cao nhất là 0.7606} (LightGBM Tuned), vượt trội so với Baseline Logistic Regression (0.7476), tương ứng mức tăng 1.30 điểm phần trăm.
+
+    \item \textbf{Recall cao nhất là 0.5704} (XGBoost Tuned), có nghĩa mô hình bắt được 57\% số khách hàng thực tế sẽ vỡ nợ - giảm thiểu đáng kể rủi ro bỏ sót (False Negative).
+
+    \item \textbf{Feature Engineering hiệu quả:} Đặc trưng \textit{late\_payment\_count} được tạo từ kỹ nghệ đặc trưng đạt tầm quan trọng hàng đầu (33.58\%), khẳng định giá trị của việc trích xuất các chỉ số tài chính có ý nghĩa.
+
+    \item \textbf{SMOTE xử lý hiệu quả:} Việc cân bằng lớp bằng SMOTE giúp các mô hình học được ranh giới quyết định của nhóm khách hàng quỵt nợ tốt hơn, tránh bị thiên kiến về lớp đa số.
+    
+    \item \textbf{Ensemble Learning vượt trội:} Ensemble models (LightGBM, XGBoost) cải thiện 1-1.3\% so với Baseline, cho thấy khả năng bắt các mối quan hệ phi tuyến của gradient boosting.
+
+\end{itemize}
+
+\section{Ứng Dụng Thực Tế}
+
+Mô hình \textbf{LightGBM (Tuned)} được đề xuất để triển khai vào hệ thống thẩm định tự động của ngân hàng với những lợi ích:
+
+\begin{itemize}
+
+    \item Với ROC-AUC = 0.7606, mô hình cho thấy khả năng phân biệt tương đối tốt giữa khách hàng có nguy cơ vỡ nợ và khách hàng không vỡ nợ, từ đó hỗ trợ ưu tiên rà soát các hồ sơ rủi ro cao.
+
+    \item Hỗ trợ quyết định cấp hạn mức tín dụng cá nhân hóa dựa trên xác suất vỡ nợ dự báo.
+
+    \item Giảm tỷ lệ nợ xấu thông qua sàng lọc khách hàng quỵt nợ trước cấp tín dụng.
+    
+    \item Feature importance rõ ràng giúp team quản lý rủi ro giải thích quyết định cho khách hàng (Model Explainability).
+    
+    \item Deployment dễ dàng: LightGBM có latency thấp, thích hợp cho real-time scoring.
+
+\end{itemize}
+
+\subsection{Khuyến Nghị Chi Tiết}
+
+\begin{table}[H]
+    \centering
+    \caption{Khuyến Nghị Model Theo Business Context}
+    \label{tab:recommendation}
+    \begin{tabular}{|l|l|}
+        \hline
+        \rowcolor{Gray}
+        \textbf{Mục Tiêu Ngân Hàng} & \textbf{Model Khuyến Nghị} \\ \hline
+        Minimize default risk (Catch all defaults) & XGBoost Tuned (Recall=57\%) \\ \hline
+        Balance safety \& profitability & LightGBM Tuned (ROC-AUC=0.7606) \\ \hline
+        Maximize precision (Few false alarms) & LightGBM Tuned (Precision=48\%) \\ \hline
+        Production efficiency & LightGBM (faster inference) \\ \hline
+    \end{tabular}
+\end{table}
+
+\section{Giới Hạn và Hạn Chế}
+
+Mặc dù mô hình đạt kết quả tốt, vẫn tồn tại một số hạn chế cần lưu ý:
+
+\begin{itemize}
+
+    \item \textbf{Dữ liệu thời gian cố định:} Tập dữ liệu chỉ từ năm 2005 (Đài Loan), không đại diện xu hướng kinh tế hiện tại. Điều kiện kinh tế, lãi suất, inflation thời kỳ 2005 khác xa so với hiện nay (2026).
+    
+    \item \textbf{Phạm vi địa lý hẹp:} Dữ liệu chỉ từ một quốc gia (Đài Loan), không nhất thiết áp dụng cho các nước khác có nền kinh tế hoặc hành vi tiêu dùng khác.
+    
+    \item \textbf{Không bao gồm tín hiệu phi cấu trúc:} Model chỉ sử dụng 24 biến cấu trúc từ lịch sử giao dịch. Không có:
+    \begin{itemize}
+        \item \textit{Text features} từ hóa đơn, bình luận khách hàng
+        \item \textit{Image features} từ giấy tờ CMND, hợp đồng (OCR)
+        \item \textit{Alternative data} như lịch sử mua hàng online, tín dụng xã hội
+    \end{itemize}
+    
+    \item \textbf{Biến động thời gian (Concept Drift):} Hành vi khách hàng có thể thay đổi đáng kể qua các đợt (COVID-19, khủng hoảng kinh tế), model không tới được điều chỉnh tự động.
+    
+    \item \textbf{Data imbalance}:  Mặc dù SMOTE cải thiện, nhưng tỷ lệ 22\% default vẫn không đại diện hoàn hảo thực tế (một số tổ chức có tỷ lệ default 5-10\%).
+    
+    \item \textbf{Interpretability vs. Accuracy tradeoff:} Gradient boosting là ``black box'' - khó giải thích hơn Logistic Regression. Regulatory (như Basel III) có thể yêu cầu mô hình giải thích được.
+
+\end{itemize}
+
+\section{Hướng Phát Triển Tiếp Theo}
+
+\begin{itemize}
+
+    \item \textbf{Mô hình Deep Learning:} Sử dụng Neural Networks (Dense Networks, TabNet) hoặc LSTM cho dữ liệu time-series thanh toán.
+    
+    \item \textbf{Multimodal Learning:} Kết hợp dữ liệu cấu trúc + text từ hóa đơn + image từ giấy tờ.
+
+    \item \textbf{Model Explainability:} Tích hợp SHAP (SHapley Additive exPlanations) hoặc LIME để giải thích quyết định model cho stakeholders.
+
+    \item \textbf{Online Learning \& Retraining:} Xây dựng pipeline MLOps để:
+    \begin{itemize}
+        \item Tái huấn luyện model hằng tháng với dữ liệu mới
+        \item Phát hiện model drift (performance degradation) và alert
+        \item A/B testing giữa các phiên bản model
+    \end{itemize}
+
+    \item \textbf{Federated Learning:} Huấn luyện trên dữ liệu của nhiều ngân hàng mà giữ được privacy.
+    
+    \item \textbf{Xử lý Imbalance Nâng Cao:} Thử các kỹ thuật khác như ADASYN, Borderline-SMOTE, hoặc cost-sensitive learning.
+
+\end{itemize}
+
+\section{Kết Luận Cuối}
+
+Qua dự án này, chúng tôi đã xây dựng một mô hình \textbf{dự báo rủi ro tín dụng hiệu quả}, lựa chọn \textbf{hoặc LightGBM Tuned hoặc XGBoost Tuned} tùy thuộc business objective của ngân hàng. Mô hình không chỉ đạt độ chính xác cao mà còn cung cấp \textbf{feature importance rõ ràng}, giúp team quản lý rủi zo hiểu được các yếu tố chính gây ra vỡ nợ. Kỹ nghệ đặc trưng (\textit{Feature Engineering}) tỏ rõ giá trị, với \texttt{late\_payment\_count} chiếm 33.58\% tầm quan trọng — chứng minh rằng \textit{\textbf{domain knowledge}} kết hợp với \textit{\textbf{machine learning}} là cách tiếp cận đúng cho các bài toán tài chính.

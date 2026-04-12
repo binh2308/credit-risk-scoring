@@ -1,0 +1,47 @@
+% Chương này trình bày bối cảnh, lý do thực hiện, mục tiêu và scope của đề tài.
+\chapter{GIỚI THIỆU}
+
+\section{Lý do thực hiện đề tài}
+% Chi tiết: Mô tả bối cảnh kinh tế, vấn đề rủi ro tín dụng, và tầm quan trọng của việc dự báo
+
+Trong bối cảnh nền kinh tế số phát triển mạnh mẽ, các cơ sở tài chính và ngân hàng đang chuyển dịch từ phương thức thẩm định truyền thống sang hệ thống thẩm định tự động dựa trên dữ liệu lớn (Big Data). Rủi ro tín dụng, cụ thể là khả năng khách hàng không thể hoàn trả nợ đúng hạn, là yếu tố sống còn ảnh hưởng trực tiếp đến tỷ lệ nợ xấu (Non-Performing Loans - NPL) và thanh khoản của hệ thống.
+
+Theo số liệu từ Ngân hàng Thế giới, tỷ lệ nợ xấu trung bình toàn cầu đạt khoảng 1-2\% tổng tài sản ngân hàng. Ở một số quốc gia, con số này cao hơn 5\%, gây áp lực lên cân đối tài chính. Do đó, việc xây dựng một mô hình dự báo chính xác không chỉ giúp giảm thiểu rủi ro mà còn cho phép ngân hàng mở rộng tệp khách hàng tiềm năng thông qua việc cá nhân hóa hạn mức tín dụng.
+
+Đồ án này tập trung vào bài toán phân loại nhị phân nhằm dự báo xác suất vỡ nợ của khách hàng thẻ tín dụng trong tháng tiếp theo, sử dụng các thuật toán học máy tiên tiến thuộc nhóm Ensemble Learning. Sự kết hợp giữa tiền xử lý dữ liệu tinh tế, kỹ nghệ đặc trưng sáng tạo, và tối ưu hóa siêu tham số sẽ giúp xây dựng một hệ thống thẩm định mạnh mẽ, có khả năng triển khai thực tế.
+
+\section{Mục tiêu nghiên cứu}
+
+Đề tài được xác định các mục tiêu cụ thể sau:
+
+\begin{enumerate}
+
+    \item \textbf{Phân tích yếu tố rủi ro:} Xác định và phân tích các yếu tố hành vi (lịch sử thanh toán, dư nợ hóa đơn, trạng thái thanh toán quá hạn) ảnh hưởng trực tiếp đến khả năng vỡ nợ của khách hàng thẻ tín dụng.
+
+    \item \textbf{Kỹ nghệ đặc trưng (Feature Engineering):} Trích xuất và xây dựng các chỉ số tài chính định lượng có ý nghĩa từ dữ liệu thô, chẳng hạn như: Tỷ lệ sử dụng tín dụng, Tỷ lệ thanh toán, Tần suất trễ nợ. Những biến tạo ra này phải có tính giải thích cao và khả năng dự báo tốt.
+
+    \item \textbf{Xử lý mất cân bằng dữ liệu:} Giải quyết thách thức phổ biến trong dữ liệu rủi ro tài chính là sự mất cân bằng giữa hai lớp (Default vs. Non-Default). Áp dụng kỹ thuật SMOTE để tạo dữ liệu tổng hợp cho lớp thiểu số.
+
+    \item \textbf{So sánh và tối ưu hóa mô hình:} Xây dựng và so sánh hiệu năng giữa năm mô hình: Baseline (Logistic Regression), LightGBM + XGBoost (mặc định), và các phiên bản được tối ưu hóa bằng Optuna Bayesian Optimization.
+
+    \item \textbf{Đánh giá và khuyến nghị:} Đánh giá mô hình tốt nhất trên các metrics quan trọng (ROC-AUC, F1-Score, Recall, Precision) và đưa ra khuyến nghị triển khai thực tế cho hệ thống ngân hàng.
+
+\end{enumerate}
+
+\section{Phạm vi và Giới hạn}
+
+\textbf{Phạm vi của đề tài:}
+\begin{itemize}
+    \item Tập dữ liệu: 30.000 khách hàng từ Đài Loan, năm 2005
+    \item Biến số: 24 biến độc lập (nhân khẩu học, trạng thái thanh toán, dư nợ, số tiền trả)
+    \item Phương pháp: Ensemble Learning (Gradient Boosting) + Bayesian Optimization
+    \item Metric đánh giá: ROC-AUC (chính), F1-Score, Recall, Precision
+\end{itemize}
+
+\textbf{Giới hạn:}
+\begin{itemize}
+    \item Dữ liệu chỉ từ một quốc gia (Đài Loan) và khoảng thời gian cố định (2005)
+    \item Không bao gồm các biến phi cấu trúc (text, images) từ hồ sơ ứng tuyển
+    \item Mô hình không tính đến các biến kinh tế vĩ mô (inflation, interest rates)
+    \item Không áp dụng online learning tái huấn luyện định kỳ
+\end{itemize}

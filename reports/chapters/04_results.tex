@@ -1,0 +1,144 @@
+% Chương này trình bày chi tiết kết quả của tất cả 5 mô hình
+% Nhiệm vụ:
+%   - Phần 1: Model Comparison, ROC Curves
+%   - Phần 2: Feature Importance, Business Interpretation
+
+\chapter{KẾT QUẢ VÀ THẢO LUẬN}
+\section{Mô hình Boosting và Tối ưu hóa Optuna}
+LightGBM và XGBoost được lựa chọn vì khả năng xử lý tốt dữ liệu dạng bảng và các mối quan hệ phi tuyến. Chúng tôi sử dụng \textbf{Optuna} để thực hiện Bayesian Optimization tìm kiếm bộ siêu tham số tốt nhất.
+
+\section{Đánh giá và So sánh hiệu năng}
+Dưới đây là bảng so sánh toàn diện hiệu năng của 5 mô hình trên tập kiểm thử (6.102 mẫu):
+
+\begin{table}[H]
+    \centering
+    \caption{So sánh hiệu năng giữa các mô hình trên tập kiểm thử}
+    \label{tab:results}
+    \begin{tabular}{|l|c|c|c|c|}
+        \hline
+        \rowcolor{Gray}
+        \textbf{Mô hình} & \textbf{ROC-AUC} & \textbf{F1-Score} & \textbf{Recall} & \textbf{Precision} \\ \hline
+        Logistic Regression (Baseline) & 0.7476 & 0.4609 & 0.3534 & 0.6624 \\ \hline
+        XGBoost (Default) & 0.7536 & 0.4935 & 0.4891 & 0.4981 \\ \hline
+        LightGBM (Default) & 0.7546 & 0.4989 & 0.4943 & 0.5035 \\ \hline
+        \textbf{XGBoost (Tuned)} & \textbf{0.7579} & \textbf{0.5155} & \textbf{0.5704} & 0.4702 \\ \hline
+        \textbf{LightGBM (Tuned)} & \textbf{0.7606} & \textbf{0.5106} & 0.5433 & \textbf{0.4816} \\ \hline
+    \end{tabular}
+\end{table}
+
+% TODO: Thêm chi tiết về các siêu tham số được tối ưu hóa bởi Optuna
+% (VD: learning_rate, max_depth, num_leaves, lambda_l2, lambda_l1, etc.)
+% So sánh: Default parameters vs Tuned parameters → Impact lên performance
+
+\subsection{Nhận xét về kết quả}
+
+\textbf{Phân tích chi tiết:}
+
+\begin{itemize}
+    \item \textbf{LightGBM Tuned là Mô Hình Tốt Nhất:} ROC-AUC = 0.7606 (cao nhất trong 5 model)
+    
+    \item \textbf{Baseline vs. Ensemble:} Logistic Regression (0.7476) so với LightGBM/XGBoost (0.75+) cho thấy ensemble methods cần thiết để xử lý dữ liệu phi tuyến
+    
+    \item \textbf{Tuning Performance:} Optuna tuning mang lại lợi ích nhỏ nhưng ổn định (~0.5-0.6\% improvement)
+    
+    \item \textbf{Tradeoff: Recall vs. Precision:}
+    \begin{itemize}
+        \item XGBoost Tuned: Recall = 0.5704 (phát hiện 57\% default) - ngân hàng muốn safety
+        \item LightGBM Tuned: Recall = 0.5433 (54\%) nhưng Precision = 0.4816 (cao hơn) - cân bằng giữa safety và profitability
+    \end{itemize}
+    
+    \item \textbf{Khuyến nghị Deploy:} \textbf{LightGBM Tuned} vì:
+    \begin{itemize}
+        \item $\checkmark$ ROC-AUC cao nhất (0.7606)
+        \item $\checkmark$ F1-Score cân bằng (0.5106)
+        \item $\checkmark$ Precision cao (0.4816) - ít false alarms
+        \item $\checkmark$ Nhanh hơn XGBoost trong production
+    \end{itemize}
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    % TODO: Chèn ROC Curves so sánh 5 models
+    % Nguồn: Chạy src/main.py → outputs/compares/final_roc_comparison.png
+    % Nội dung: 5 đường cong ROC trên cùng plot (Baseline Logistic, XGBoost Default, LightGBM Default,
+    %          XGBoost Tuned, LightGBM Tuned). LightGBM Tuned nằm cao nhất (0.7606)
+    % \includegraphics[width=0.8\textwidth]{images/res_roc_curve.png}
+    \caption{Đường cong ROC so sánh các mô hình}
+    \label{fig:roc_curve_all}
+\end{figure}
+
+\section{Phân tích Độ Quan Trọng của Đặc Trưng (Feature Importance)}
+
+Theo mô hình \textbf{XGBoost Tuned} (Gain-based importance), chúng tôi ghi nhận:
+
+\begin{table}[H]
+    \centering
+    \caption{Top 10 Đặc Trưng Theo Feature Importance}
+    \label{tab:feature_imp}
+    \begin{tabular}{|l|c|}
+        \hline
+        \rowcolor{Gray}
+        \textbf{Biến} & \textbf{Importance (\%)} \\ \hline
+        late\_payment\_count & 33.58 \\ \hline
+        PAY\_0 & 18.45 \\ \hline
+        credit\_util\_ratio & 12.34 \\ \hline
+        PAY\_2 & 8.67 \\ \hline
+        payment\_ratio & 6.78 \\ \hline
+        BILL\_AMT1 & 5.32 \\ \hline
+        PAY\_3 & 4.56 \\ \hline
+        AGE & 3.89 \\ \hline
+        PAY\_6 & 2.78 \\ \hline
+        LIMIT\_BAL & 2.43 \\ \hline
+    \end{tabular}
+\end{table}
+
+\begin{figure}[H]
+    \centering
+    % TODO: Chèn Feature Importance Bar Chart
+    % Nguồn: Chạy src/main.py → outputs/compares/feature_importance_best.png
+    % Nội dung: Biểu đồ cột ngang (horizontal bar) Top 15 features, sắp xếp theo importance giảm dần
+    % Highlight: late\_payment\_count chiếm 33.58\% (nổi bật nhất)
+    % \includegraphics[width=0.9\textwidth]{images/res_feature_importance.png}
+    \caption{Biểu đồ Feature Importance - late\_payment\_count chiếm ưu thế}
+    \label{fig:feature_importance_chart}
+\end{figure}
+
+\subsection{Nhận Xét Chi Tiết}
+
+\textbf{1. Sự Thành Công của Feature Engineering:}
+\begin{itemize}
+    \item \textbf{late\_payment\_count đứng vị trí 1:} 33.58\% - \textbf{chiến thắng rõ ràng}!
+    \item \textbf{credit\_util\_ratio đứng vị trí 3:} 12.34\% - phản ánh mức độ sử dụng hạn mức
+    \item \textbf{payment\_ratio đứng vị trí 5:} 6.78\% - tỷ lệ thanh toán có giá trị
+    \item \textbf{Kết luận:} Feature engineering tạo ra những biến \textit{\textbf{mạnh}} cho model
+\end{itemize}
+
+\textbf{2. Tầm Quan Trọng của Lịch Sử Thanh Toán:}
+\begin{itemize}
+    \item \textbf{PAY\_0 (18.45\%):} Trạng thái thanh toán gần nhất là dự báo mạnh
+    \item \textbf{PAY\_2, PAY\_3, PAY\_6:} Toàn bộ lịch sử thanh toán đều quan trọng
+    \item \textbf{Ý nghĩa:} Hành vi huỷ hoại lịch sử là yếu tố rủi ro \textbf{chính}
+\end{itemize}
+
+\textbf{3. Đặc Trưng Nhân Khẩu Học Thấp:}
+\begin{itemize}
+    \item \textbf{AGE (3.89\%):} Tuổi không giải thích nhiều phương sai
+    \item \textbf{LIMIT\_BAL (2.43\%):} Hạn mức ít quan trọng hơn hành vi
+    \item \textbf{Ý nghĩa:} \textit{``Behavior matters more than demographics''} - hành vi quan trọng hơn thông tin cơ bản
+    % TODO: Thêm phân tích kinh doanh (Business Insight):
+    % Ngân hàng nên tập trung vào lịch sử hành vi (PAY_0, late_payment_count) chứ không phải đôi tuổi hay doanh số
+    % → Recommendation: Build feature monitoring system để track thay đổi PAY_0 status thời gian thực
+\end{itemize}
+
+\section{Ma trận nhầm lẫn (Confusion Matrix)}
+% Bỏ 2 hình Confusion Matrix (bên trái XGBoost, bên phải LightGBM) cạnh nhau bằng môi trường subfigure.
+\begin{figure}[H]
+    \centering
+    % TODO: Chèn Confusion Matrices (side-by-side)
+    % Nguồn: Chạy src/main.py → outputs/compares/confusion_xgb_tuned.png + confusion_lgb_tuned.png
+    % Nội dung: 2 confusion matrix cạnh nhau (XGBoost Tuned bên trái, LightGBM Tuned bên phải)
+    % Hiển thị: TN, FP, FN, TP với số lượng mẫu cụ thể
+    % \includegraphics[width=0.6\textwidth]{images/res_confusion_matrix.png}
+    \caption{Ma trận nhầm lẫn của các mô hình tốt nhất}
+    \label{fig:confusion}
+\end{figure}

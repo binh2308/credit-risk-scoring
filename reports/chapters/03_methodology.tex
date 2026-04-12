@@ -1,0 +1,97 @@
+% Chương này chi tiết hóa toàn bộ quy trình tiền xử lý, feature engineering, và xử lý imbalance.
+% Nhiệm vụ:
+%   1. Giải thích cụ thể từng bước làm sạch code.
+%   2. Kiểm tra tính toán công thức toán học.
+%   3. Thêm subsection về cơ chế SMOTE + diagram minh họa.
+%   4. Định nghĩa rõ ràng các metric đánh giá.
+
+\chapter{PHƯƠNG PHÁP NGHIÊN CỨU}
+
+\section{Tiền Xử Lý Dữ Liệu và Làm Sạch}
+
+Dữ liệu thô thường chứa các giá trị nhiễu hoặc mã hóa không nhất quán. Quy trình làm sạch được thực hiện nghiêm ngặt:
+
+\subsection{Xử Lý Biến Định Danh}
+
+\textbf{1. Biến EDUCATION (Trình độ học vấn):}
+\begin{itemize}
+    \item \textbf{Mã gốc:} 0, 1, 2, 3, 4, 5, 6
+    \item \textbf{Xử lý:} Gộp 4, 5, 6, 0 thành nhóm "Other"
+    \item \textbf{Lý do:} Các nhóm này chiếm < 1\% mỗi nhóm, gộp giảm noise
+\end{itemize}
+
+\textbf{2. Biến MARRIAGE (Tình trạng hôn nhân):}
+\begin{itemize}
+    \item \textbf{Mã gốc:} 0, 1, 2, 3
+    \item \textbf{Xử lý:} Giữ 3 nhóm chính (Married, Single, Other)
+    \item \textbf{Lý do:} Cân bằng giữa chi tiết và độ ổn định
+\end{itemize}
+
+\subsection{Xử Lý Trạng Thái Thanh Toán - PAY\_0 đến PAY\_6}
+
+\textbf{Giá trị gốc:}
+\begin{itemize}
+    \item -2, -1: Thanh toán đúng hạn
+    \item 0: Thanh toán đúng hạn
+    \item 1 đến 9+: Quá hạn 1 tháng đến 9+ tháng
+\end{itemize}
+
+\textbf{Xử lý:}
+\begin{equation}
+    \text{PAY\_x\_clipped} = \max(0, \text{PAY\_x})
+\end{equation}
+
+\section{Kỹ Nghệ Đặc Trưng Chuyên Sâu (Feature Engineering)}
+
+Dựa trên luận điểm của các hệ thống chấm điểm tín dụng hiện đại, chúng tôi trích xuất các biến phi tuyến:
+
+\subsection{1. Tỷ Lệ Sử Dụng Tín Dụng (Credit Utilization Ratio)}
+
+\begin{equation}
+    \text{credit\_util\_ratio} = \frac{\text{BILL\_AMT1}}{\text{LIMIT\_BAL}}
+\end{equation}
+
+Phản ánh mức độ "cận biên" của khách hàng. Ratio cao = Rủi ro cao.
+
+\subsection{2. Tỷ Lệ Thanh Toán (Payment Ratio)}
+
+\begin{equation}
+    \text{payment\_ratio}_t = \frac{\text{PAY\_AMT}_{t}}{\text{BILL\_AMT}_{t}}
+\end{equation}
+
+So sánh số tiền trả thực tế với dư nợ. Ratio thấp = Hành vi rủi ro.
+
+\subsection{3. Tần Suất Chậm Nợ (Late Payment Count)}
+
+\begin{equation}
+    \text{late\_payment\_count} = \sum_{i=0}^{6} [\text{PAY\_i} > 0]
+\end{equation}
+
+Đặc trưng này đạt tầm quan trọng ~33\% trong model tốt nhất.
+
+\section{Giải Quyết Mất Cân Bằng Dữ Liệu bằng SMOTE}
+
+\subsection{SMOTE (Synthetic Minority Over-sampling Technique)}
+
+Kỹ thuật tạo mẫu ảo cho lớp thiểu số thông qua nội suy:
+
+\textbf{Quy trình:}
+\begin{enumerate}
+    \item Xác định lớp thiểu số (Default = 22.12\%)
+    \item Tìm k-Nearest Neighbors (k=5) cho mỗi mẫu
+    \item Nội suy: $\text{New} = \text{Sample} + \lambda \times (\text{Neighbor} - \text{Sample})$
+    \item Lặp đến khi cân bằng (50\% mỗi lớp)
+\end{enumerate}
+
+\textbf{Áp dụng:} SMOTE chỉ trên training set, KHÔNG trên validation/test set.
+
+\section{Các Metrics Đánh Giá}
+
+Vì dữ liệu mất cân bằng, chúng tôi sử dụng:
+
+\begin{itemize}
+    \item \textbf{ROC-AUC:} Đánh giá chính, không bị ảnh hưởng bởi class imbalance
+    \item \textbf{F1-Score:} Cân bằng giữa Precision và Recall
+    \item \textbf{Recall:} Phát hiện bao nhiêu \% khách hàng vỡ nợ thực tế
+    \item \textbf{Precision:} Trong những dự oán vỡ nợ, bao nhiêu \% chính xác
+\end{itemize}

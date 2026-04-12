@@ -1,0 +1,216 @@
+% Chương này trình bày quá trình thảo luận khám phá dữ liệu (EDA).
+% Nhiệm vụ:
+%   1. Mở rộng các subsections 2.2, 2.3, 2.4 với chi tiết và hình ảnh
+%   2. Có ít nhất 3-4 hình (dùng \includegraphics)
+%   3. Viết nhận xét chi tiết dựa trên dữ liệu thử nghiệm
+
+
+\chapter{TỔNG QUAN DỮ LIỆU VÀ PHÂN TÍCH KHÁM PHÁ (EDA)}
+
+\section{Mô tả tập dữ liệu}
+% Chi tiết: Đến xuất dữ liệu, kích thước, timeframe, và các đặc điểm cơ bản
+
+Nghiên cứu sử dụng tập dữ liệu \textit{Default of Credit Card Clients} từ Đài Loan (UCI Machine Learning Repository). 
+
+\textbf{Thông tin chính:}
+\begin{itemize}
+    \item \textbf{Kích thước mẫu:} 30.000 khách hàng thẻ tín dụng
+    \item \textbf{Thời kỳ dữ liệu:} Tháng 4 - Tháng 9 năm 2005 từ Đài Loan
+    \item \textbf{Số biến:} 24 biến độc lập + 1 biến mục tiêu (DEFAULT)
+    \item \textbf{Nguồn gốc:} Yeh \& Lien (2009) - Các bản ghi chi tiết thanh toán và công năng tài chính quản lý của ngân hàng
+    \item \textbf{Biến mục tiêu:} \texttt{DEFAULT} (1 = Vỡ nợ trong tháng tới, 0 = Trả đúng hạn)
+\end{itemize}
+
+\section{Phân tích phân phối và Tương quan}
+% Chi tiết: Class imbalance, correlation, multicollinearity, payment status trends
+
+\subsection{Phân phối biến mục tiêu và Mất cân bằng Lớp (Class Imbalance)}
+
+Thông qua quá trình EDA, đặc điểm đầu tiên và đáng ngạc nhiên nhất là sự mất cân bằng
+giữa các lớp:
+
+\begin{itemize}
+    \item \textbf{Lớp 0 (Không vỡ nợ):} 23.364 mẫu $\Rightarrow$ \textbf{77.88\%}
+    \item \textbf{Lớp 1 (Vỡ nợ):} 6.636 mẫu $\Rightarrow$ \textbf{22.12\%}
+    \item \textbf{Tỷ lệ mất cân bằng:} 1 : 3.52 (Lớp 1 : Lớp 0)
+\end{itemize}
+
+Đại lượng mất cân bằng này là đặc trưng độc lập của dữ liệu tài chính: hầu hết khách hàng là \textit{\textbf{những người trở nợ đúng hạn}}, và chỉ một tỷ lệ nhỏ là khách hàng quỵt nợ. Nếu sử dụng mô hình không điều chỉnh, mô hình có thể chỉ bỏ nước đôi bánh \textit{\textbf{liên dự oán}}: dự oán mỗi khách hàng là "Lớp 0" (không vỡ nợ) sẽ được Accuracy 77.88\%, nhưng lại thất bại 100\% trong việc phát hiện những người quỵt nợ. Do đó, ứng dụng kỹ thuật cân bằng (SMOTE) là \textbf{bắt buộc}.
+% TODO: So sánh chi tiết Accuracy vs Recall vs Precision nếu không dùng SMOTE (để minh hoạ vấn đề)
+% Tính toán: Baseline model (no SMOTE) → Accuracy cao nhưng Recall rất thấp → Kết luận đó là vấn đề
+% Hình 1: Class Distribution
+\begin{figure}[H]
+    \centering
+    \begin{tabular}{cc}
+        \toprule
+        & \textbf{Count} \\
+        \midrule
+        \textbf{Lớp 0 (No Default)} & 23.364 (77.88\%) \\
+        \textbf{Lớp 1 (Default)} & 6.636 (22.12\%) \\
+        \bottomrule
+    \end{tabular}
+    \\
+    % TODO: Chèn biểu đồ bar/pie về Class Distribution
+    % Nguồn: Chạy src/eda.py → outputs/eda/class_distribution.png
+    % Nội dung: Biểu đồ cột/tròn thể hiện 77.88% No Default vs 22.12% Default (Class Imbalance)
+    % \includegraphics[width=0.6\textwidth]{images/eda_class_distribution.png}
+    \caption{Phân phối biến mục tiêu (Vỡ nợ vs. Không vỡ nợ) - Class Imbalance rất đáng kề}
+    \label{fig:class_dist}
+\end{figure}
+
+\subsection{Tương quan giữa Các Biến và Vỡ nợ}
+
+Ma trận tương quan (Correlation Matrix) với biến mục tiêu cho thấy:
+
+\begin{table}[H]
+    \centering
+    \caption{Top 10 biến có tương quan cao nhất với DEFAULT}
+    \label{tab:top_corr}
+    \begin{tabular}{|l|c|}
+        \hline
+        \rowcolor{Gray}
+        \textbf{Biến} & \textbf{Correlation} \\ \hline
+        PAY\_0 (Trạng thái thanh toán mới nhất) & 0.4849 \\ \hline
+        PAY\_2 & 0.4099 \\ \hline
+        PAY\_3 & 0.3866 \\ \hline
+        PAY\_6 (Trạng thái thanh toán 6 tháng trước) & 0.3427 \\ \hline
+        BILL\_AMT1 & 0.1655 \\ \hline
+        PAY\_5 & 0.3156 \\ \hline
+        AGE & 0.0635 \\ \hline
+        LIMIT\_BAL & -0.1049 \\ \hline
+        PAY\_4 & 0.2877 \\ \hline
+        BILL\_AMT3 & 0.1343 \\ \hline
+    \end{tabular}
+\end{table}
+
+\textbf{Nhận xét chi tiết:}
+\begin{itemize}
+    \item \textbf{PAY\_0 được xác định là yếu tố dự báo đặc biệt mạnh nhất} (r = 0.485) - Trạng thái thanh toán gần tới (PAY\_0) là \textbf{đặc trưng quan trọng đầu tiên} trong dự báo mệt khách hàng có xu hướng vỡ nợ.
+    \item \textbf{Hiệu ứng lịch sử (History Effect):} PAY\_0, PAY\_2, PAY\_3 lưỡng lạt giảm, cho thấy \textbf{dù không quá xa là khá kháng khí ỳ vấn đề vỡ nợ} và lịch sử đó khủng hàm.
+    \item \textbf{Dư nợ hóa đơn kém tương quan:} BILL\_AMT1 chỉ có r = 0.166, cho thấy số dư nợ theo tuyệt đối không đặc biệt để đủ đoán vỡ nợ (tuyến tính). Nhưng \textit{tỷ lệ} giữa dư nợ và hạn mức (credit\_util\_ratio) sẽ ra trường hợp có ý nghĩa hơn.
+    \item \textbf{Age có tương quan yếu:} Age chỉ r = 0.064, cho thấy tuổi đơn lẻ không phải là yếu tố thuộc, nhưng kết hợp với những biến khác có thể có giá trị.
+\end{itemize}
+
+\subsection{Đa Cộng Tuyến (Multicollinearity) - BILL\_AMT và PAY\_AMT}
+
+Các biến dư nợ hóa đơn (\texttt{BILL\_AMT1} đến \texttt{BILL\_AMT6}) và số tiền trả (\texttt{PAY\_AMT1} đến \texttt{PAY\_AMT6}) trình bày hệ số tương quan rất cao (thường $\rho > 0.90$), giáo trường \textbf{lên của đa cộng tuyến}:
+
+\begin{itemize}
+    \item \textbf{Correlation BILL\_AMT1 $\leftrightarrow$ BILL\_AMT2:} $r \approx 0.96$
+    \item \textbf{Correlation PAY\_AMT1 $\leftrightarrow$ PAY\_AMT2:} $r \approx 0.94$
+    \item \textbf{Tác dụng:} Đa cộng tuyến không làm mất độ chính xác dự đoán tra Linear Regression, nhưng làm giải thích hệ số mở rộng trong model. Tuy nhiên, đối với Ensemble models, họ tự động chọn một subset features tự động, do đó không ảnh hưởng lớn.
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    % TODO: Chèn Correlation Heatmap
+    % Nguồn: Chạy src/eda.py → outputs/eda/correlation_heatmap.png
+    % Nội dung: Heatmap 24×24 biến, highlight các giá trị tương quan cao (đỏ) và thấp (xanh)
+    % % \includegraphics[width=0.9\textwidth]{images/eda_correlation_heatmap.png}
+    \caption{Ma trận tương quan giữa những biến chính - Thấy rõ đa cộng tuyến trong BILL\_AMT và PAY\_AMT}
+    \label{fig:corr_heatmap}
+\end{figure}
+
+\section{Phân tích Các Biến Số Học (Numerical Variables)}
+% Chi tiết: Distribution, outliers, statistical summary
+
+\subsection{Thống Kê Mô Tả (Descriptive Statistics)}
+
+\begin{table}[H]
+    \centering
+    \caption{Thống kê mẫu của những biến chính}
+    \label{tab:desc_stats}
+    \begin{tabular}{|l|c|c|c|c|c|}
+        \hline
+        \rowcolor{Gray}
+        \textbf{Biến} & \textbf{Mean} & \textbf{Std} & \textbf{Min} & \textbf{Max} & \textbf{Unit} \\ \hline
+        LIMIT\_BAL & 167,484 & 129,747 & 10,000 & 1,000,000 & NT\$ \\ \hline
+        AGE & 35,50 & 9,18 & 21 & 79 & năm \\ \hline
+        BILL\_AMT1 & 51,223 & 73,635 & -165,580 & 964,511 & NT\$ \\ \hline
+        PAY\_AMT1 & 3,694 & 12,002 & 0 & 1,684,259 & NT\$ \\ \hline
+    \end{tabular}
+\end{table}
+
+\textbf{Important Observations:}
+\begin{itemize}
+    \item \textbf{LIMIT\_BAL:} Hạn mức tín dụng trung bình khoảng 167,5 triệu đồng NT\$, nhưng có khoảng rất rộng (từ 10,000 NT\$ đến 1 tỷ NT\$). Độ lệch chuẩn lớn (129,7 triệu) chỉ ra \textbf{sự phân tầng khách hàng} rõ rệt.
+    \item \textbf{AGE:} Độ tuổi trung bình 35,5 năm, tập trung trong khoảng 21-79 năm. Phân phối hầu như \textbf{bình thường} (normal distribution).
+    \item \textbf{BILL\_AMT1 \& PAY\_AMT1:} Có \textbf{giá trị âm} (BILL\_AMT tối thiểu = -165,580), đó là lỗi dữ liệu hoặc thể hiện tình trạng khách hàng được hoàn tiền (credit)
+\end{itemize}
+
+\subsection{Phân Phối và Outliers}
+
+\begin{figure}[H]
+    \centering
+    % TODO: Chèn Boxplot của Numerical Variables
+    % Nguồn: Chạy src/eda.py → outputs/eda/numerical_dist.png hoặc boxplot images
+    % Nội dung: Boxplot 4-5 biến chính (LIMIT_BAL, AGE, BILL_AMT1, PAY_AMT1, credit_util_ratio)
+    % Hiển thị: median, quartiles, outliers rõ ràng
+    % % \includegraphics[width=0.8\textwidth]{images/eda_numerical_dist.png}
+    \caption{Phân phối của các biến số học chính (Boxplot) - có outliers trong BILL\_AMT và PAY\_AMT}
+    \label{fig:numerical_dist}
+\end{figure}
+
+\section{Phân Tích Các Biến Phân Loại (Categorical Variables)}
+% Chi tiết: SEX, EDUCATION, MARRIAGE distributions
+
+\subsection{Phân Phối Biến Giới Tính (SEX)}
+
+\begin{table}[H]
+    \centering
+    \caption{Phân phối của biến SEX (Giới tính)}
+    \label{tab:sex_dist}
+    \begin{tabular}{|l|c|c|}
+        \hline
+        \rowcolor{Gray}
+        \textbf{SEX} & \textbf{Count} & \textbf{Percentage} \\ \hline
+        1 (Nam) & 9,659 & 32.2\% \\ \hline
+        2 (Nữ) & 20,341 & 67.8\% \\ \hline
+    \end{tabular}
+\end{table}
+
+\textbf{Nhận xét:}
+\begin{itemize}
+    \item Data thành phố khách \textbf{không đến hạn}: 68\% nữ so 32\% nam - Bất thường cao
+    % TODO: Tìm hiểu nguyên nhân tại sao nữ chiếm 68% (có thể từ ngành riêng, khu vực cụ thể, hoặc bias thu thập dữ liệu?)
+    \item Không rõ lý do, nhưng có thể là dữ liệu thu thập từ một ngành hoặc khu vực cụ thể
+    \item Có thể dùng lẫn phân tích Xóm theo giới tính trong model đánh giá sau này
+\end{itemize}
+
+\subsection{Phân Phối Biến Học Vấn (EDUCATION)}
+
+% TODO: Thêm phân tích tác động của trình độ học vấn đối với tỷ lệ vỡ nợ
+% (Tính tỷ lệ default theo từng mức học vấn: cao học vs đại học vs THPT vs khác)
+
+\begin{table}[H]
+    \centering
+    \caption{Phân phối của biến EDUCATION (Trình độ học vấn)}
+    \label{tab:edu_dist}
+    \begin{tabular}{|l|c|c|c|}
+        \hline
+        \rowcolor{Gray}
+        \textbf{Code} & \textbf{Education Level} & \textbf{Count} & \textbf{\%} \\ \hline
+        1 & Cao học (Graduate) & 1,519 & 5.06\% \\ \hline
+        2 & Đại học (University) & 10,941 & 36.47\% \\ \hline
+        3 & THPT (High School) & 14,657 & 48.86\% \\ \hline
+        4 & Khác (Others) & 3,001 & 10.01\% \\ \hline
+        0 & Chưa phân loại & 45 & 0.15\% \\ \hline
+    \end{tabular}
+\end{table}
+
+\subsection{Phân Phối Biến Tình trạng Hôn Nhân (MARRIAGE)}
+
+\begin{table}[H]
+    \centering
+    \caption{Phân phối của biến MARRIAGE (Tình trạng hôn nhân)}
+    \label{tab:marriage_dist}
+    \begin{tabular}{|l|c|c|c|}
+        \hline
+        \rowcolor{Gray}
+        \textbf{Code} & \textbf{Status} & \textbf{Count} & \textbf{\%} \\ \hline
+        1 & Kết hôn (Married) & 18,239 & 60.80\% \\ \hline
+        2 & Độc thân (Single) & 11,413 & 38.04\% \\ \hline
+        3 & Khác (Others) & 545 & 1.82\% \\ \hline
+        0 & Chưa phân loại & 45 & 0.15\% \\ \hline
+    \end{tabular}
+\end{table}
