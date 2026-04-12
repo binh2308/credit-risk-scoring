@@ -74,7 +74,7 @@ def main():
     
     # Model 3: XGBoost with default parameters
     print("\n===== XGBOOST (DEFAULT) =====")
-    y_pred_xgb, y_proba_xgb, xgb_model = xgb_model_train(
+    y_pred_xgb, y_proba_xgb, _ = xgb_model_train(
         X_resample=X_resample, y_resample=y_resample, X_test=X_test
     )
     metrics_xgb = evaluate_model(y_test=y_test, y_pred=y_pred_xgb, y_proba=y_proba_xgb)
