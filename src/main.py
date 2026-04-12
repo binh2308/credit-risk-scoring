@@ -10,6 +10,7 @@ from sklearn.model_selection import train_test_split
 
 from data_processing.balance_data import apply_smote, create_sample
 from evaluation.compare import evaluate_model, plot_confusion, plot_feature_importance, plot_roc, save_metrics_table
+from evaluation.explainability import generate_shap_summary
 from models.train_model import lgb_model_train, objective_lgb, objective_xgb, xgb_model_train
 import models.model as model
 from utils import utils
@@ -137,6 +138,10 @@ def main():
     
     # Generate feature importance plot from best model (LightGBM Tuned)
     plot_feature_importance(lgb_best_model, X_train, "feature_importance_best.png")
+
+    print("\n===== SHAP EXPLAINABILITY =====")
+    shap_path = generate_shap_summary(lgb_best_model, X_train, filename="shap_summary_lgb_best")
+    print(f"Saved SHAP summary to: {shap_path}")
 
     from evaluation.compare import OUTPUT_PATH
     print("\n" + "="*70)
