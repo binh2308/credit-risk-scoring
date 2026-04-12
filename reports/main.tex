@@ -1,5 +1,4 @@
 \documentclass[a4paper, 12pt]{report}
-
 \usepackage[utf8]{inputenc}
 \usepackage[T5]{fontenc}
 \usepackage[vietnamese]{babel}
@@ -17,49 +16,32 @@
 \usepackage{subfig}
 \usepackage{enumitem}
 \setlist[itemize]{noitemsep, topsep=0pt}
-\usepackage[nopar]{lipsum}
 \usepackage{titlesec}
-\usepackage{soul}
-\usepackage{scrextend}
-\usepackage{etoolbox}
 \usepackage[bottom]{footmisc}
 \usepackage{xurl}
 
 \usepackage{tikz}
 \usetikzlibrary{calc}
-\usepackage{fancybox}
-\usepackage[raster]{tcolorbox}
 \usepackage{tabularray}
-\usepackage{array}
-\usepackage{longtable}
-\usepackage{tabularx}
-\usepackage{makecell}
-\usepackage{multirow}
-\usepackage{color, colortbl, xcolor}
-\usepackage{arydshln}
+\usepackage{booktabs}
+\usepackage{color, colortbl}
+\usepackage[dvipsnames, x11names]{xcolor}
 
-\definecolor{Gray}{gray}{0.8}
-\definecolor{swotS}{RGB}{46,110,187}
-\definecolor{swotW}{RGB}{239,167,58}
-\definecolor{swotO}{RGB}{112,193,61}
-\definecolor{swotT}{RGB}{110,62,197}
 \definecolor{hcmutBlue}{RGB}{0, 60, 179}
-
 \usepackage{fancyhdr}
 \usepackage{lastpage}
 \usepackage[unicode]{hyperref}
 
 \hypersetup{
-    colorlinks=true,        % Bật tô màu cho các liên kết
-    citecolor=hcmutBlue,    % Màu của số trích dẫn [1], [2] (Xanh BK)
-    linkcolor=black,        % Màu của mục lục, hình ảnh (để đen cho trang trọng)
-    urlcolor=hcmutBlue      % Màu của đường link URL (Xanh BK cho đẹp)
+    colorlinks=true,
+    citecolor=hcmutBlue,
+    linkcolor=black,
+    urlcolor=hcmutBlue
 }
 
 \newcommand{\schoolHeader}{%
     \begin{minipage}{0.1\textwidth}
-        % Chỗ này bạn có thể chèn Logo HCMUT nếu có file Images/HCMUT_Logo.png
-        % \includegraphics[width=1.2cm, height=1.2cm, keepaspectratio]{Images/HCMUT_Logo.png}
+        \includegraphics[width=1.2cm, height=1.2cm, keepaspectratio]{Images/HCMUT_Logo.png}
     \end{minipage}%
     \begin{minipage}{0.85\textwidth}
         \bfseries\color{hcmutBlue}
@@ -100,51 +82,17 @@
   {\MakeUppercase}
 \titlespacing*{\chapter}{0pt}{18pt}{20pt}
 
-\titleformat{\section}
-  {\normalfont\bfseries\fontsize{14}{16}\selectfont}
-  {\thesection}
-  {1em}
-  {}
+\titleformat{\section}{\normalfont\bfseries\fontsize{14}{16}\selectfont}{\thesection}{1em}{}
 \titlespacing*{\section}{0pt}{12pt}{6pt}
 
-\titleformat{\subsection}
-  {\normalfont\bfseries\fontsize{13}{15}\selectfont}
-  {\thesubsection}
-  {1em}
-  {}
+\titleformat{\subsection}{\normalfont\bfseries\fontsize{13}{15}\selectfont}{\thesubsection}{1em}{}
 \titlespacing*{\subsection}{0pt}{6pt}{0pt}
-
-\usepackage[nopatch=footnote]{microtype}
-\usepackage{listings}
-
-\definecolor{codegray}{rgb}{0.5,0.5,0.5}
-\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
-\lstdefinestyle{mystyle}{
-    backgroundcolor=\color{backcolour},   
-    commentstyle=\color{codegray},
-    keywordstyle=\color{blue},
-    numberstyle=\tiny\color{codegray},
-    stringstyle=\color{red},
-    basicstyle=\ttfamily\footnotesize,
-    breakatwhitespace=false,         
-    breaklines=true,                 
-    captionpos=b,                    
-    keepspaces=true,                 
-    numbers=left,                    
-    numbersep=5pt,                  
-    showspaces=false,                
-    showtabs=false,                  
-    tabsize=2
-}
-\lstset{style=mystyle}
-\renewcommand{\lstlistingname}{Đoạn mã}
 
 \usepackage[format=plain, font=large, labelfont=bf,textfont=it, justification=centering]{caption}
 \DeclareCaptionLabelFormat{vi-figure}{Hình #2}
 \DeclareCaptionLabelFormat{vi-table}{Bảng #2}
 \captionsetup[figure]{labelformat=vi-figure, labelsep=colon}
 \captionsetup[table]{labelformat=vi-table, labelsep=colon}
-
 \begin{document}
 
 % --- TRANG BÌA ---
@@ -162,33 +110,26 @@
 
 \begin{center}
   \singlespacing 
-  
   \vspace{-0.5cm}
-  
   \textbf{\fontsize{13pt}{15pt}\selectfont ĐẠI HỌC QUỐC GIA THÀNH PHỐ HỒ CHÍ MINH}\\
   \textbf{\fontsize{13pt}{15pt}\selectfont TRƯỜNG ĐẠI HỌC BÁCH KHOA}\\
   \textbf{\fontsize{13pt}{15pt}\selectfont KHOA KHOA HỌC VÀ KỸ THUẬT MÁY TÍNH}
   
   \vspace{0.5cm}
-  
   \includegraphics[width=3.5cm, keepaspectratio]{images/HCMUT_Logo.png}
   
   \vspace{0.5cm}
-  
   \textbf{\fontsize{16pt}{19pt}\selectfont BÁO CÁO ĐỒ ÁN MÔN HỌC} \\
   \vspace{0.2cm}
   \fontsize{13pt}{15pt}\selectfont (Mã học phần: CO3135)
   
   \vspace{1cm}
-  
   \rule{\textwidth}{1pt} \\[0.3cm]
   \textbf{\fontsize{18pt}{22pt}\selectfont XÂY DỰNG HỆ THỐNG DỰ ĐOÁN RỦI RO TÍN DỤNG \\ DỰA TRÊN DỮ LIỆU THẺ TÍN DỤNG} \\[0.3cm]
   \rule{\textwidth}{1pt}
   
   \vspace{1cm}
-  
   \textbf{\fontsize{14pt}{17pt}\selectfont Ngành: KHOA HỌC MÁY TÍNH}
-  
   \vspace{1cm}
 
   \begin{tabular}{r l l}
@@ -201,15 +142,12 @@
   \end{tabular}
   
   \vfill
-  
   \fontsize{11pt}{15pt}\selectfont Thành phố Hồ Chí Minh, tháng 04 năm 2026
-  
   \vspace{1.0cm}
 \end{center}
 \end{titlepage}
 
 \pagenumbering{roman}
-
 \tableofcontents
 
 \newpage
@@ -231,297 +169,43 @@
 \newpage
 \pagenumbering{arabic}
 
-\chapter{GIỚI THIỆU}
-\section{Lý do thực hiện đề tài}
-Trong bối cảnh nền kinh tế số phát triển mạnh mẽ, các cơ sở tài chính và ngân hàng đang chuyển dịch từ phương thức thẩm định truyền thống sang hệ thống thẩm định tự động dựa trên dữ liệu lớn (Big Data). Rủi ro tín dụng, cụ thể là khả năng khách hàng không thể hoàn trả nợ đúng hạn, là yếu tố sống còn ảnh hưởng trực tiếp đến tỷ lệ nợ xấu (Non-Performing Loans - NPL) và thanh khoản của hệ thống.
+\input{chapters/01_intro}
+\input{chapters/02_eda}
+\input{chapters/03_methodology}
+\input{chapters/04_results}
+\input{chapters/05_conclusion}
 
-Việc xây dựng một mô hình dự báo chính xác không chỉ giúp giảm thiểu rủi ro mà còn cho phép ngân hàng mở rộng tệp khách hàng tiềm năng thông qua việc cá nhân hóa hạn mức tín dụng. Đồ án này tập trung vào bài toán phân loại nhị phân nhằm dự báo xác suất vỡ nợ của khách hàng thẻ tín dụng trong tháng tiếp theo, sử dụng các thuật toán học máy tiên tiến thuộc nhóm Ensemble Learning.
-
-\section{Mục tiêu nghiên cứu}
-\begin{itemize}
-    \item Phân tích các yếu tố hành vi (lịch sử thanh toán, dư nợ hóa đơn) ảnh hưởng đến khả năng vỡ nợ.
-    \item Thực hiện kỹ nghệ đặc trưng (Feature Engineering) để trích xuất các chỉ số tài chính định lượng có ý nghĩa.
-    \item Giải quyết vấn đề mất cân bằng dữ liệu - một thách thức phổ biến trong dữ liệu rủi ro tài chính.
-    \item So sánh hiệu năng giữa hai mô hình Gradient Boosting phổ biến là LightGBM và XGBoost, đồng thời tối ưu hóa chúng bằng Optuna.
-\end{itemize}
-
-\chapter{TỔNG QUAN DỮ LIỆU VÀ PHÂN TÍCH KHÁM PHÁ (EDA)}
-\section{Mô tả tập dữ liệu}
-Nghiên cứu sử dụng tập dữ liệu \textit{Default of Credit Card Clients} từ Đài Loan. Tập dữ liệu bao gồm 30.000 mẫu với 24 biến độc lập. Theo nghiên cứu gốc của Yeh \& Lien (2009), các biến này bao gồm thông tin cá nhân và dữ liệu tài chính trong vòng 6 tháng từ tháng 4 đến tháng 9 năm 2005.
-
-\section{Phân tích phân phối và Tương quan}
-Thông qua quá trình EDA, chúng tôi ghi nhận một số đặc điểm quan trọng từ 30.000 bản ghi dữ liệu:
-\begin{itemize}
-    \item \textbf{Mất cân bằng lớp (Class Imbalance):} Tỷ lệ khách hàng vỡ nợ (Target = 1) chỉ chiếm khoảng 22.12\% (6.636 mẫu), trong khi khách hàng không vỡ nợ chiếm 77.88\% (23.364 mẫu). Sự lệch pha này yêu cầu phải có các biện pháp xử lý đặc biệt như SMOTE khi huấn luyện mô hình để tránh hiện tượng mô hình bị thiên kiến (bias) về lớp đa số.
-    \item \textbf{Đặc điểm nhân khẩu học:} Nhóm khách hàng có độ tuổi từ 25 đến 40 chiếm đa số. Tỷ lệ nữ giới cao hơn nam giới, tuy nhiên tỷ lệ vỡ nợ ở nam giới có xu hướng cao hơn.
-    \item \textbf{Đa cộng tuyến (Multicollinearity):} Các biến dự nợ hóa đơn (\texttt{BILL\_AMT1} đến \texttt{BILL\_AMT6}) có hệ số tương quan rất cao (thường > 0.9). Điều này gợi ý rằng các giá trị dư nợ có tính chất lũy kế và ít biến động đột ngột theo tháng đơn lẻ.
-    \item \textbf{Trạng thái thanh toán (Payment Status):} Các biến \texttt{PAY\_0} đến \texttt{PAY\_6} có mối tương quan thuận mạnh nhất với biến mục tiêu. Đặc biệt, \texttt{PAY\_0} (trạng thái tháng gần nhất) là biến dự báo đơn lẻ mạnh nhất.
-\end{itemize}
-
-\begin{figure}[H]
-    \centering
-    % \includegraphics[width=0.45\textwidth]{outputs/eda/target_distribution_countplot.png}
-    % \includegraphics[width=0.45\textwidth]{outputs/eda/target_distribution_percentage.png}
-    \caption{Phân phối biến mục tiêu (Vỡ nợ vs. Không vỡ nợ)}
-    \label{fig:target_dist}
-\end{figure}
-
-\begin{figure}[H]
-    \centering
-    % \includegraphics[width=0.8\textwidth]{outputs/eda/correlation_heatmap_full.png}
-    \caption{Ma trận tương quan giữa các biến trong tập dữ liệu}
-    \label{fig:corr_heatmap}
-\end{figure}
-
-\chapter{PHƯƠNG PHÁP NGHIÊN CỨU}
-\section{Tiền xử lý dữ liệu và Làm sạch}
-Dữ liệu thô thường chứa các giá trị nhiễu hoặc mã hóa không nhất quán. Quy trình làm sạch được thực hiện nghiêm ngặt để đảm bảo tính ổn định:
-\begin{itemize}
-    \item \textbf{Xử lý biến định danh:} Các nhóm học vấn (\texttt{EDUCATION}) và tình trạng hôn nhân (\texttt{MARRIAGE}) được gộp vào nhóm chính quy hoặc nhóm "Khác" để tránh loãng dữ liệu.
-    \item \textbf{Xử lý giá trị âm trong PAY\_x:} Dữ liệu ban đầu chứa các giá trị -1, -2 cho trạng thái thanh toán đúng hạn. Chúng tôi đưa các giá trị này về 0 để mô hình tập trung học các mức độ quá hạn (1, 2, 3...).
-\end{itemize}
-
-\section{Kỹ nghệ đặc trưng chuyên sâu (Feature Engineering)}
-Dựa trên luận điểm của các hệ thống chấm điểm tín dụng hiện đại, chúng tôi đề xuất trích xuất các biến phi tuyến để tăng cường khả năng phân tách của mô hình:
-\begin{enumerate}
-    \item \textbf{Tỷ lệ sử dụng tín dụng (\texttt{credit\_util\_ratio}):} 
-    \begin{equation}
-        \text{Credit\_Util\_Ratio} = \frac{\text{BILL\_AMT1}}{\text{LIMIT\_BAL}}
-    \end{equation}
-    Biến này phản ánh mức độ "cận biên" của khách hàng. Khách hàng sử dụng sát hạn mức thường có rủi ro cao hơn.
-    
-    \item \textbf{Tỷ lệ trả nợ (\texttt{payment\_ratio}):}
-    \begin{equation}
-        \text{Payment\_Ratio}_t = \frac{\text{PAY\_AMT}_{t}}{\text{BILL\_AMT}_{t+1}}
-    \end{equation}
-    So sánh số tiền trả với dư nợ hóa đơn kỳ trước để xác định hành vi chi trả thực tế.
-    
-    \item \textbf{Tần suất chậm nợ (\texttt{late\_payment\_count}):} 
-    \begin{equation}
-        \text{Late\_Count} = \sum_{i \in \{0,2,3,4,5,6\}} [\text{PAY\_i} > 0]
-    \end{equation}
-    Đếm số lượng trường lịch sử trạng thái thanh toán (\texttt{PAY\_0}, \texttt{PAY\_2} đến \texttt{PAY\_6}) mà khách hàng có trạng thái chậm thanh toán.
-\end{enumerate}
-
-\section{Giải quyết mất cân bằng bằng SMOTE}
-Kỹ thuật SMOTE (Synthetic Minority Over-sampling Technique) được lựa chọn để tạo mẫu ảo cho lớp thiểu số (Target=1) giúp mô hình học được ranh giới quyết định của nhóm khách hàng rủi ro. Chúng tôi chỉ áp dụng SMOTE trên tập huấn luyện (\textit{Training Set}) để đảm bảo tính khách quan cho tập kiểm thử.
-
-\chapter{KẾT QUẢ VÀ THẢO LUẬN}
-\section{Mô hình Boosting và Tối ưu hóa Optuna}
-LightGBM và XGBoost được lựa chọn vì khả năng xử lý tốt dữ liệu dạng bảng và các mối quan hệ phi tuyến. 
-\begin{itemize}
-    \item \textbf{LightGBM} nổi bật với tốc độ xử lý nhanh nhờ kỹ thuật GOSS (Gradient-based One-Side Sampling).
-    \item \textbf{XGBoost} được tin dùng nhờ hệ thống chính quy hóa tích hợp sẵn (L1, L2 regularization) giúp kiểm soát phương sai của mô hình.
-\end{itemize}
-
-Chúng tôi sử dụng \textbf{Optuna} để thực hiện Bayesian Optimization. Thay vì thử nghiệm ngẫu nhiên, Optuna dựa trên kết quả của các lần thử trước (Trials) để thu hẹp không gian tìm kiếm vào các vùng triển vọng, giúp tìm được bộ siêu tham số tốt nhất với số lần thử nghiệm tối thiểu.
-
-\section{Đánh giá và So sánh hiệu năng}
-Kết quả thực nghiệm cho thấy sự vượt trội rõ rệt của các mô hình Boosting so với Baseline Logistic Regression. Đặc biệt, việc tối ưu hóa siêu tham số bằng Optuna đã giúp cải thiện ROC-AUC của cả XGBoost và LightGBM thêm khoảng 0.5-1.0\%.
-
-Dưới đây là bảng so sánh toàn diện hiệu năng của 5 mô hình trên tập kiểm thử (6.102 mẫu):
-
-\begin{table}[H]
-    \centering
-    \caption{So sánh hiệu năng giữa các mô hình trên tập kiểm thử - Kết quả thực tế}
-    \label{tab:results}
-    \begin{tabular}{|l|c|c|c|c|}
-        \hline
-        \textbf{Mô hình} & \textbf{ROC-AUC} & \textbf{F1-Score} & \textbf{Recall} & \textbf{Precision} \\ \hline
-        Logistic Regression (Baseline) & 0.7476 & 0.4609 & 0.3534 & 0.6624 \\ \hline
-        XGBoost (Default) & 0.7536 & 0.4935 & 0.4891 & 0.4981 \\ \hline
-        LightGBM (Default) & 0.7546 & 0.4989 & 0.4943 & 0.5035 \\ \hline
-        \textbf{XGBoost (Tuned)} & \textbf{0.7579} & \textbf{0.5155} & \textbf{0.5704} & 0.4702 \\ \hline
-        \textbf{LightGBM (Tuned)} & \textbf{0.7606} & \textbf{0.5106} & 0.5433 & \textbf{0.4816} \\ \hline
-    \end{tabular}
-    \par\small\textit{Nguồn: Kết quả từ script \texttt{main.py} - Task 11: Final Evaluation \& Comparison}
-\end{table}
-
-\subsection{Nhận xét về kết quả}
-\begin{itemize}
-    \item \textbf{LightGBM (Tuned)} đạt điểm ROC-AUC cao nhất: \textbf{0.7606}, vượt trội so với baseline 1.30 điểm phần trăm (0.7476 → 0.7606) và so với mô hình Default 0.60 điểm phần trăm (0.7546 → 0.7606).
-    \item \textbf{Recall của XGBoost (Tuned)} là cao nhất (0.5704), nghĩa là mô hình này bắt được 57\% số lượng khách hàng thực tế sẽ vỡ nợ. Điều này rất quan trọng vì trong ngân hàng, False Negative (bỏ sót khách hàng nguy hiểm) có chi phí cao hơn False Positive.
-    \item \textbf{Precision của LightGBM (Tuned)} cao hơn (0.4816), giảm thiểu được sai sót loại I (dự báo sai người không vỡ nợ).
-    \item Sự cải thiện sau Optuna tuning (+0.5\% ROC-AUC) cho thấy hiệu quả của phương pháp tìm kiếm siêu tham số thông minh.
-\end{itemize}
-
-\begin{figure}[H]
-    \centering
-    % \includegraphics[width=0.8\textwidth]{outputs/compares/roc_curve_best.png}
-    \caption{Đường cong ROC so sánh các mô hình tối ưu nhất}
-    \label{fig:roc_curve_best}
-\end{figure}
-
-\section{Phân tích độ quan trọng của đặc trưng (Feature Importance)}
-Xác định các đặc trưng quan trọng nhất giúp hiểu rõ hơn về những yếu tố nào ảnh hưởng nhiều nhất đến quyết định của mô hình. Theo mô hình XGBoost được tối ưu tốt nhất, chúng tôi ghi nhận các biến quan trọng như sau:
-
-\begin{table}[H]
-    \centering
-    \caption{Top 10 Đặc trưng quan trọng theo XGBoost (Tuned)}
-    \label{tab:feature_importance}
-    \begin{tabular}{|r|l|c|}
-        \hline
-        \textbf{Rank} & \textbf{Đặc trưng} & \textbf{Importance Value} \\ \hline
-        1 & late\_payment\_count (Tần suất chậm nợ) & 0.3358 \\ \hline
-        2 & PAY\_2 (Trạng thái tháng thứ 2) & 0.0923 \\ \hline
-        3 & paid\_full (Thanh toán đầy đủ) & 0.0853 \\ \hline
-        4 & MARRIAGE (Tình trạng hôn nhân) & 0.0507 \\ \hline
-        5 & SEX (Giới tính) & 0.0408 \\ \hline
-        6 & PAY\_0 (Trạng thái tháng gần nhất) & 0.0378 \\ \hline
-        7 & payment\_ratio (Tỷ lệ trả nợ) & 0.0345 \\ \hline
-        8 & PAY\_AMT1 (Số tiền thanh toán tháng gần nhất) & 0.0272 \\ \hline
-        9 & EDUCATION (học vấn) & 0.0242 \\ \hline
-        10 & PAY\_3 (Trạng thái tháng thứ 3) & 0.0221 \\ \hline
-    \end{tabular}
-\end{table}
-
-\subsection{Kết luận từ Feature Importance}
-\begin{itemize}
-    \item \textbf{late\_payment\_count} chiếm hơn 33\% tầm quan trọng - đây chính là đặc trưng được tạo ra từ Feature Engineering của nhóm. Sự thành công của nó khẳng định giá trị của kỹ nghệ đặc trưng dựa trên lý thuyết tài chính.
-    \item \textbf{Trạng thái thanh toán} (PAY\_0, PAY\_2, PAY\_3) tập trung chiếm 11\% tầm quan trọng, phản ánh hành vi lịch sử thanh toán là chỉ báo mạnh nhất cho khả năng vỡ nợ.
-    \item \textbf{Nhân khẩu học} (MARRIAGE, SEX, EDUCATION) đóng góp nhỏ hơn (khoảng 8\% tổng cộng), đề xuất rằng trong lĩnh vực tín dụng, hành vi thanh toán quan trọng hơn các đặc điểm cá nhân cơ bản.
-\end{itemize}
-
-\subsection{Task 11: Final Evaluation \& Model Comparison}
-Task 11 là bước đánh giá cuối cùng, tổng hợp kết quả của toàn bộ pipeline. Quy trình bao gồm:
-
-\begin{enumerate}
-    \item \textbf{Optuna Hyperparameter Tuning (30 trials mỗi mô hình):}
-    \begin{itemize}
-        \item \textbf{XGBoost Variants:} Ba siêu tham số chính được tối ưu: \texttt{max\_depth}, \texttt{learning\_rate}, \texttt{n\_estimators}, \texttt{subsample}, \texttt{colsample\_bytree}.
-        \item \textbf{LightGBM Variants:} Tương tự, nhưng LightGBM tập trung vào \texttt{feature\_fraction} và \texttt{subsample} để kiểm soát lượng dữ liệu sử dụng trong mỗi vòng lặp (iteration).
-        \item \textbf{Hàm Mục tiêu:} ROC-AUC trên validation set (4.913 mẫu). Optuna dùng phương pháp Bayesian Optimization để tìm kiếm giải pháp tối ưu.
-    \end{itemize}
-    
-    \item \textbf{Evaluation trên Test Set:} Sau khi xác định best hyperparameters, hai mô hình được tái huấn (retrain) trên toàn bộ training set với SMOTE, sau đó đánh giá trên test set chưa nhìn thấy trước (6.102 mẫu).
-    
-    \item \textbf{Metrics Tính toán:}
-    \begin{itemize}
-        \item \textbf{ROC-AUC:} Diện tích dưới đường cong ROC, phản ánh khả năng xếp hạng của mô hình.
-        \item \textbf{F1-Score:} Trung bình điều hòa của Precision và Recall, cân bằng hai mục tiêu xung đột.
-        \item \textbf{Recall (Sensitivity):} Tỷ lệ không bỏ sót khách hàng quỵt nợ thực tế.
-        \item \textbf{Precision:} Tỷ lệ chính xác khi dự báo khách hàng quỵt nợ.
-    \end{itemize}
-    
-    \item \textbf{Visualization:} Ba loại biểu đồ được tạo ra:
-    \begin{itemize}
-        \item \textbf{ROC Curve:} So sánh 5 mô hình trên cùng một không gian ROC-TPR vs. FPR.
-        \item \textbf{Confusion Matrix:} Hiển thị 2x2 bảng TP, TN, FP, FN cho mô hình XGBoost và LightGBM tuned.
-        \item \textbf{Feature Importance:} Biểu đồ cột Top 10 đặc trưng quan trọng.
-    \end{itemize}
-\end{enumerate}
-
-\subsection{Kết quả từ Task 11}
-Bảng \ref{tab:results} đã trình bày chi tiết. Hai kết quả đáng chú ý:
-
-\begin{itemize}
-    \item \textbf{LightGBM (Tuned):} Đạt ROC-AUC cao nhất (0.7606), được lựa chọn làm mô hình chính yếu để áp dụng trong thực tế. Với tỷ lệ vàng giữa Recall (0.5433) và Precision (0.4816), mô hình này cân bằng tốt giữa việc bắt được khách hàng nguy hiểm và giảm thiểu cảnh báo sai.
-    
-    \item \textbf{XGBoost (Tuned):} Mặc dù ROC-AUC thấp hơn (0.7579), nhưng Recall cao nhất (0.5704). Nếu ngân hàng muốn giảm thiểu rủi ro tối đa, có thể dùng XGBoost Tuned với ngưỡng xác suất thấp hơn để tăng cảnh báo.
-\end{itemize}
-
-\begin{figure}[H]
-    \centering
-    % \includegraphics[width=0.8\textwidth]{outputs/compares/feature_importance.png}
-    \caption{Top 10 đặc trưng quan trọng nhất dự báo rủi ro tín dụng}
-    \label{fig:feature_imp_general}
-\end{figure}
-
-\section{Ma trận nhầm lẫn (Confusion Matrix)}
-Ma trận nhầm lẫn cung cấp cái nhìn chi tiết về 4 loại quyết định của mô hình:
-\begin{itemize}
-    \item \textbf{TP (True Positive):} Dự báo vỡ nợ + Thực tế vỡ nợ. Số lượng cao tốt.
-    \item \textbf{TN (True Negative):} Dự báo không vỡ nợ + Thực tế không vỡ nợ. Số lượng cao tốt.
-    \item \textbf{FP (False Positive):} Dự báo vỡ nợ + Thực tế không vỡ nợ. Gây mất khách hàng tiềm năng.
-    \item \textbf{FN (False Negative):} Dự báo không vỡ nợ + Thực tế vỡ nợ. **Chi phí cao nhất** - Ngân hàng mất tiền.
-\end{itemize}
-
-Với LightGBM (Tuned) có Recall = 0.5433, điều này nghĩa là:
-\begin{equation}
-    \text{Recall} = \frac{TP}{TP + FN} = 0.5433
-\end{equation}
-
-Khoảng 54\% khách hàng quỵt nợ thực tế được phát hiện sớm, giúp ngân hàng triển khai biện pháp phòng chống. Các mô hình đã cải thiện đáng kể so với Baseline (Recall = 0.3534).
-
-Để truy cập confusion matrices chi tiết, bạn có thể xem file hình ảnh:
-\begin{itemize}
-    \item \texttt{outputs/compares/confusion\_xgb\_tuned.png} - XGBoost Tuned
-    \item \texttt{outputs/compares/confusion\_lgb\_tuned.png} - LightGBM Tuned
-\end{itemize}
-
-\begin{figure}[H]
-    \centering
-    % \includegraphics[width=0.45\textwidth]{outputs/compares/confusion_xgb_tuned.png}
-    % \includegraphics[width=0.45\textwidth]{outputs/compares/confusion_lgb_tuned.png}
-    \caption{Ma trận nhầm lẫn của LightGBM và XGBoost sau khi tối ưu siêu tham số qua Optuna}
-    \label{fig:confusion}
-\end{figure}
-
-\begin{figure}[H]
-    \centering
-    % \includegraphics[width=0.8\textwidth]{outputs/compares/final_roc_comparison.png}
-    \caption{Đường cong ROC so sánh 5 mô hình trên tập kiểm thử}
-    \label{fig:roc_curve_all}
-\end{figure}
-
-\begin{figure}[H]
-    \centering
-    % \includegraphics[width=0.8\textwidth]{outputs/compares/feature_importance_best.png}
-    \caption{Top 10 đặc trưng quan trọng nhất theo mô hình LightGBM (Tuned) - Khẳng định giá trị Feature Engineering}
-    \label{fig:feature_imp_lgb_tuned}
-\end{figure}
-
-\chapter{KẾT LUẬN}
-
-Dự án đã thực thi thành công một quy trình hoàn chỉnh để giải quyết bài toán dự báo rủi ro tín dụng. Những đạt được chính bao gồm:
-
-\section{Các Kết quả Chính}
-\begin{itemize}
-    \item \textbf{ROC-AUC cao nhất là 0.7606} (LightGBM Tuned), vượt trội so với Baseline Logistic Regression (0.7476), tương ứng mức tăng 1.30 điểm phần trăm.
-    
-    \item \textbf{Recall cao nhất là 0.5704} (XGBoost Tuned), có nghĩa mô hình bắt được 57\% số khách hàng thực tế sẽ vỡ nợ - giảm thiểu đáng kể rủi ro bỏ sót (False Negative).
-    
-    \item \textbf{Feature Engineering hiệu quả:} Đặc trưng \textit{late\_payment\_count} được tạo từ kỹ nghệ đặc trưng đạt tầm quan trọng hàng đầu (33.58\%), khẳng định giá trị của việc trích xuất các chỉ số tài chính có ý nghĩa.
-    
-    \item \textbf{SMOTE xử lý hiệu quả:} Việc cân bằng lớp bằng SMOTE giúp các mô hình học được ranh giới quyết định của nhóm khách hàng quỵt nợ tốt hơn, tránh bị thiên kiến về lớp đa số.
-\end{itemize}
-
-\section{Ứng dụng Thực Tế}
-Mô hình LightGBM (Tuned) được đề xuất để triển khai vào hệ thống thẩm định tự động của ngân hàng với những lợi ích:
-\begin{itemize}
-    \item Với ROC-AUC = 0.7606, mô hình cho thấy khả năng phân biệt tương đối tốt giữa khách hàng có nguy cơ vỡ nợ và khách hàng không vỡ nợ, từ đó hỗ trợ ưu tiên rà soát các hồ sơ rủi ro cao.
-    \item Hỗ trợ quyết định cấp hạn mức tín dụng cá nhân hóa dựa trên xác suất vỡ nợ dự báo.
-    \item Giảm tỷ lệ nợ xấu thông qua sàng lọc khách hàng aggressively trước cấp tín dụng.
-\end{itemize}
-
-\section{Hướng Phát Triển Tiếp Theo}
-\begin{itemize}
-    \item Sử dụng các mô hình Deep Learning như TabNet hoặc Neural Networks để xử lý dữ liệu phức tạp hơn.
-    \item Tích hợp dữ liệu phi cấu trúc (text, images) từ hồ sơ khách hàng để làm phong phú thêm bộ tính năng.
-    \item Phát triển hệ thống giải thích mô hình (Model Explainability) sử dụng SHAP hoặc LIME để giúp nhân viên ngân hàng hiểu được lý do từng quyết định.
-    \item Xây dựng pipeline MLOps để theo dõi hiệu năng mô hình theo thời gian (model drift detection) và tái huấn luyện định kỳ.
-\end{itemize}
-
+% TODO: Cập nhật thêm danh sách trích dẫn tại đây
 \begin{thebibliography}{99}
 \addcontentsline{toc}{chapter}{TÀI LIỆU THAM KHẢO}
 
 \bibitem{yeh2009} 
+
 Yeh, I. C., \& Lien, C. H. (2009). The comparisons of data mining techniques for the predictive accuracy of probability of default of credit card clients. \textit{Expert Systems with Applications}, 36(2), 2473-2480.
 
 \bibitem{smote2002} 
+
 Chawla, N. V., Bowyer, K. W., Hall, L. O., \& Kegelmeyer, W. P. (2002). SMOTE: synthetic minority over-sampling technique. \textit{Journal of artificial intelligence research}, 16, 321-357.
 
 \bibitem{lgb2017} 
+
 Ke, G., Meng, Q., Finley, T., Wang, T., Chen, W., Ma, W., ... \& Liu, T. Y. (2017). LightGBM: A highly efficient gradient boosting decision tree. \textit{Advances in neural information processing systems}, 30.
 
+
 \bibitem{xgb2016} 
+
 Chen, T., \& Guestrin, C. (2016). XGBoost: A scalable tree boosting system. \textit{Proceedings of the 22nd acm sigkdd international conference on knowledge discovery and data mining}, 785-794.
 
+
 \bibitem{optuna2019} 
+
 Akiba, T., Sano, S., Yanase, T., Ohta, T., \& Koyama, M. (2019). Optuna: A next-generation hyperparameter optimization framework. \textit{Proceedings of the 25th ACM SIGKDD international conference on knowledge discovery \& data mining}, 2623-2631.
 
+
 \bibitem{shap2017}
+
 Lundberg, S. M., \& Lee, S. I. (2017). A unified approach to interpreting model predictions. In \textit{Advances in neural information processing systems} (pp. 4765-4774).
+
 
 \end{thebibliography}
 
