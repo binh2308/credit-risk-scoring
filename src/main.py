@@ -61,7 +61,7 @@ def main():
 
     # Model 2: LightGBM with default parameters
     print("\n===== LIGHTGBM (DEFAULT) =====")
-    y_pred_lgb, y_proba_lgb = lgb_model_train(
+    y_pred_lgb, y_proba_lgb, _ = lgb_model_train(
         X_resample=X_resample, y_resample=y_resample, X_test=X_test
     )
     metrics_lgb = evaluate_model(y_test=y_test, y_pred=y_pred_lgb, y_proba=y_proba_lgb)
@@ -108,7 +108,7 @@ def main():
         ), 
         n_trials=30
     )
-    y_pred_lgb_best, y_proba_lgb_best = lgb_model_train(
+    y_pred_lgb_best, y_proba_lgb_best, lgb_best_model = lgb_model_train(
         X_resample=X_resample, y_resample=y_resample, X_test=X_test, 
         **study_lgb.best_params
     )
@@ -132,8 +132,8 @@ def main():
     plot_confusion(y_test, y_pred_xgb_best, "confusion_xgb_tuned.png", "XGBoost (Tuned)")
     plot_confusion(y_test, y_pred_lgb_best, "confusion_lgb_tuned.png", "LightGBM (Tuned)")
     
-    # Generate feature importance plot
-    plot_feature_importance(xgb_best_model, X_train, "feature_importance_best.png")
+    # Generate feature importance plot from best model (LightGBM Tuned)
+    plot_feature_importance(lgb_best_model, X_train, "feature_importance_best.png")
 
     print("\n" + "="*70)
     print("Evaluation complete. Results saved to: outputs/compares/")

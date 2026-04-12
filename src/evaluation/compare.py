@@ -174,11 +174,12 @@ def plot_feature_importance(model, X, filename="feature_importance.png"):
     print(df.head(10).to_string(index=False))
     
     # Plot top 10
+    model_name = type(model).__name__
     plt.figure(figsize=(10, 6))
     plt.barh(df["feature"][:10], df["importance"][:10], color='steelblue')
     plt.gca().invert_yaxis()  # Highest importance at top
     plt.xlabel('Importance Score', fontsize=11)
-    plt.title("Top 10 Most Important Features (XGBoost)", fontsize=13, fontweight='bold')
+    plt.title(f"Top 10 Most Important Features ({model_name})", fontsize=13, fontweight='bold')
     plt.tight_layout()
     plt.savefig(OUTPUT_PATH / filename, dpi=300, bbox_inches='tight')
     plt.close()
