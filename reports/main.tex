@@ -1,4 +1,11 @@
 \documentclass[a4paper, 12pt]{report}
+\usepackage{array}
+\usepackage[table, dvipsnames, x11names]{xcolor}
+\makeatletter
+\def\insert@pcolumn{\insert@column}
+\makeatother
+\usepackage{tabularray}
+\usepackage{booktabs}
 \usepackage[utf8]{inputenc}
 \usepackage[T5]{fontenc}
 \usepackage[vietnamese]{babel}
@@ -22,11 +29,8 @@
 
 \usepackage{tikz}
 \usetikzlibrary{calc}
-\usepackage{tabularray}
-\usepackage{booktabs}
-\usepackage{color, colortbl}
-\usepackage[dvipsnames, x11names]{xcolor}
 
+\definecolor{Gray}{gray}{0.9}
 \definecolor{hcmutBlue}{RGB}{0, 60, 179}
 \usepackage{fancyhdr}
 \usepackage{lastpage}
@@ -54,7 +58,7 @@
     \fancyhf{}
     \fancyhead[L]{\schoolHeader}
     \fancyhead[R]{\small \slshape \leftmark}
-    \fancyfoot[L]{\small Báo cáo đồ án môn học: P4AI-DS}
+    \fancyfoot[L]{\small Bài tập lớn P4AI-DS}
     \fancyfoot[R]{\small Trang \thepage/\pageref{LastPage}}
     \renewcommand{\headrulewidth}{0.5pt}
     \renewcommand{\footrulewidth}{0.5pt}
@@ -64,7 +68,7 @@
     \fancyhf{}
     \fancyhead[L]{\schoolHeader}
     \fancyhead[R]{} 
-    \fancyfoot[L]{\small Báo cáo đồ án môn học: P4AI-DS}
+    \fancyfoot[L]{\small Bài tập lớn P4AI-DS}
     \fancyfoot[R]{\small Trang \thepage/\pageref{LastPage}}
     \renewcommand{\headrulewidth}{0.5pt}
     \renewcommand{\footrulewidth}{0.5pt}
@@ -93,9 +97,9 @@
 \DeclareCaptionLabelFormat{vi-table}{Bảng #2}
 \captionsetup[figure]{labelformat=vi-figure, labelsep=colon}
 \captionsetup[table]{labelformat=vi-table, labelsep=colon}
+
 \begin{document}
 
-% --- TRANG BÌA ---
 \begin{titlepage}
 \begin{tikzpicture}[remember picture, overlay]
   \draw[line width=3pt] 
@@ -119,7 +123,9 @@
   \includegraphics[width=3.5cm, keepaspectratio]{images/HCMUT_Logo.png}
   
   \vspace{0.5cm}
-  \textbf{\fontsize{16pt}{19pt}\selectfont BÁO CÁO ĐỒ ÁN MÔN HỌC} \\
+  \textbf{\fontsize{16pt}{19pt}\selectfont BÀI TẬP LỚN} \\
+  \vspace{0.2cm}
+  \textbf{\fontsize{16pt}{19pt}\selectfont Lập trình cho Trí tuệ nhân tạo và Khoa học dữ liệu} \\
   \vspace{0.2cm}
   \fontsize{13pt}{15pt}\selectfont (Mã học phần: CO3135)
   
@@ -127,18 +133,15 @@
   \rule{\textwidth}{1pt} \\[0.3cm]
   \textbf{\fontsize{18pt}{22pt}\selectfont XÂY DỰNG HỆ THỐNG DỰ ĐOÁN RỦI RO TÍN DỤNG \\ DỰA TRÊN DỮ LIỆU THẺ TÍN DỤNG} \\[0.3cm]
   \rule{\textwidth}{1pt}
-  
-  \vspace{1cm}
-  \textbf{\fontsize{14pt}{17pt}\selectfont Ngành: KHOA HỌC MÁY TÍNH}
-  \vspace{1cm}
 
+  \vspace{1.5cm}
   \begin{tabular}{r l l}
     \textbf{GVHD:} & Thầy Huỳnh Văn Thống & \\
     & & \\ 
     \textbf{SVTH:} & Phạm Thanh Phong & \textbf{2212564} \\
-                   & Hoàng Phương Bình & \textbf{22xxxxx} \\
-                   & Võ Lê Anh Nghĩa & \textbf{22xxxxx} \\
-                   & Vũ Xuân Chính & \textbf{22xxxxx} \\
+                   & Hoàng Phương Bình & \textbf{2210305} \\
+                   & Võ Lê Anh Nghĩa & \textbf{2252530} \\
+                   & Vũ Xuân Chính & \textbf{2210392} \\
   \end{tabular}
   
   \vfill
@@ -146,6 +149,35 @@
   \vspace{1.0cm}
 \end{center}
 \end{titlepage}
+\newpage
+\thispagestyle{plain}
+\begin{center}
+    \textbf{\Large BẢNG PHÂN CÔNG NHIỆM VỤ} \\
+    \vspace{1cm}
+
+    \begin{tblr}{
+        width = \textwidth,
+        colspec = {|c|c|l|X[l,m]|c|},
+        row{1} = {bg=Gray, font=\bfseries, c},
+        stretch = 1.5,
+        hlines, vlines
+    }
+        STT & MSSV & Họ và Tên & Nhiệm vụ phân công & Mức độ \\
+        
+        1 & 2212564 & Phạm Thanh Phong & 
+        {\textbf{Báo cáo:} Viết Báo Cáo LATEX \\ \textbf{Kỹ thuật:} Data Cleaning, Feature Engineering (chung), Evaluation (Đánh giá mô hình)} & 100\% \\
+        
+        2 & 2210305 & Hoàng Phương Bình & 
+        {\textbf{Báo cáo:} Viết Báo Cáo LATEX \\ \textbf{Kỹ thuật:} Khởi tạo \& Load Data, EDA (Khám phá dữ liệu), Explainability (SHAP)} & 100\% \\
+        
+        3 & 2252530 & Võ Lê Anh Nghĩa & 
+        {\textbf{Báo cáo:} Viết Báo Cáo LATEX \& 5 \\ \textbf{Kỹ thuật:} Khảo sát tài liệu, Data Split \& Encoding, Chạy Baseline Models} & 100\% \\
+        
+        4 & 2210392 & Vũ Xuân Chính & 
+        {\textbf{Báo cáo:} Viết Báo Cáo LATEX \\ \textbf{Kỹ thuật:} Feature Engineering (chung), Xử lý mất cân bằng (SMOTE), Advanced Models, Hyper-parameter Tuning (Optuna)} & 100\% \\
+    \end{tblr}
+\end{center}
+\vspace{1cm}
 
 \pagenumbering{roman}
 \tableofcontents
@@ -175,37 +207,26 @@
 \input{chapters/04_results}
 \input{chapters/05_conclusion}
 
-% TODO: Cập nhật thêm danh sách trích dẫn tại đây
 \begin{thebibliography}{99}
 \addcontentsline{toc}{chapter}{TÀI LIỆU THAM KHẢO}
 
 \bibitem{yeh2009} 
-
 Yeh, I. C., \& Lien, C. H. (2009). The comparisons of data mining techniques for the predictive accuracy of probability of default of credit card clients. \textit{Expert Systems with Applications}, 36(2), 2473-2480.
 
 \bibitem{smote2002} 
-
 Chawla, N. V., Bowyer, K. W., Hall, L. O., \& Kegelmeyer, W. P. (2002). SMOTE: synthetic minority over-sampling technique. \textit{Journal of artificial intelligence research}, 16, 321-357.
 
 \bibitem{lgb2017} 
-
 Ke, G., Meng, Q., Finley, T., Wang, T., Chen, W., Ma, W., ... \& Liu, T. Y. (2017). LightGBM: A highly efficient gradient boosting decision tree. \textit{Advances in neural information processing systems}, 30.
 
-
 \bibitem{xgb2016} 
-
 Chen, T., \& Guestrin, C. (2016). XGBoost: A scalable tree boosting system. \textit{Proceedings of the 22nd acm sigkdd international conference on knowledge discovery and data mining}, 785-794.
 
-
 \bibitem{optuna2019} 
-
 Akiba, T., Sano, S., Yanase, T., Ohta, T., \& Koyama, M. (2019). Optuna: A next-generation hyperparameter optimization framework. \textit{Proceedings of the 25th ACM SIGKDD international conference on knowledge discovery \& data mining}, 2623-2631.
 
-
 \bibitem{shap2017}
-
 Lundberg, S. M., \& Lee, S. I. (2017). A unified approach to interpreting model predictions. In \textit{Advances in neural information processing systems} (pp. 4765-4774).
-
 
 \end{thebibliography}
 
