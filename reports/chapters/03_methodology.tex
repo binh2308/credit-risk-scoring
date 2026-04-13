@@ -54,6 +54,13 @@ Trong đó, $\lambda$ là một số ngẫu nhiên trong khoảng $[0, 1]$ và $
 
 Một nguyên tắc cực kỳ nghiêm ngặt được áp dụng là: Kỹ thuật SMOTE \textbf{chỉ được thực hiện duy nhất trên Tập Huấn luyện}. Sau khi áp dụng, SMOTE đã sinh thêm 13.382 mẫu nhân tạo cho nhóm vỡ nợ, cân bằng tỷ lệ nhãn 0 và 1 đạt mức 50:50. Kích thước Tập Huấn luyện lúc này tăng lên 37.382 mẫu.
 
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.75\textwidth]{images/smote_distribution.png}
+    \caption{Phân phối nhãn dữ liệu trên Tập Huấn luyện trước và sau khi áp dụng SMOTE}
+    \label{fig:smote_dist}
+\end{figure}
+
 Tập Kiểm thử (gồm 6.000 mẫu) hoàn toàn không chịu sự can thiệp của SMOTE. Việc giữ nguyên vẹn tập Kiểm thử giúp đánh giá chính xác khả năng tổng quát hóa của mô hình trên dữ liệu thực tế chưa từng thấy, ngăn chặn hoàn toàn rủi ro rò rỉ dữ liệu và đánh giá quá mức hiệu năng thực sự (Over-fitting).
 
 \section{Quy trình chuyển đổi dữ liệu và Chiến lược mô hình hóa (Modeling Strategy)}
@@ -87,11 +94,35 @@ Nghiên cứu lựa chọn mô hình \textbf{Hồi quy Logistic} (Logistic Regre
 \subsection{Tối ưu hóa siêu tham số với Optuna (Hyperparameter Tuning)}
 Các thuật toán như XGBoost và LightGBM chỉ phát huy tối đa sức mạnh khi bộ siêu tham số (Hyperparameters) được tinh chỉnh hợp lý. Thay vì sử dụng phương pháp tìm kiếm theo lưới (Grid Search) truyền thống vốn cạn kiệt tài nguyên tính toán, nghiên cứu ứng dụng thư viện \textbf{Optuna}.
 
-Optuna sử dụng thuật toán Tối ưu hóa Bayes, cụ thể là mô hình TPE (Tree-structured Parzen Estimator). Thuật toán này phân tích các vòng chạy (trials) trong quá khứ để xác định vùng không gian tham số tiềm năng nhất, từ đó hướng tới việc cực đại hóa điểm số $ROC\_AUC$. Các tham số cốt lõi được đưa vào không gian tìm kiếm bao gồm:
+Trước khi tiến hành tuning với Optuna, dữ liệu huấn luyện tiếp tục được phân tách (hold-out) theo tỷ lệ Huấn luyện/Validation (80/20 của tập Huấn luyện gốc, thành 64\% Train và 16\% Validation tổng thể) nhằm mục đích kiểm định. Tập Validation 16\% này đóng vai trò giám khảo trong suốt quá trình Optuna thử nghiệm (với số vòng lặp \texttt{n\_trials=30}). Sau khi tìm được bộ tham số tối ưu, mô hình mới được huấn luyện lại lần cuối trên toàn bộ 80\% dữ liệu đại diện.
+
+Optuna sử dụng thuật toán Tối ưu hóa Bayes, cụ thể là mô hình TPE (Tree-structured Parzen Estimator). Thuật toán này phân tích các vòng chạy (trials) trong quá khứ để xác định vùng không gian tham số tiềm năng nhất, từ đó hướng tới việc cực đại hóa điểm số $ROC\_AUC$. Các tham số cốt lõi và không gian tìm kiếm thiết lập cho mô hình bao gồm:
+
+\begin{table}[H]
+\centering
+\caption{Không gian tìm kiếm Siêu tham số (Optuna Search Space)}
+\label{tab:optuna_search_space}
+\begin{tblr}{
+    width = \textwidth,
+    colspec = {|l|c|X[l,m]|},
+    row{1} = {bg=Gray, font=\bfseries, c},
+    stretch = 1.3,
+    hlines, vlines
+}
+Siêu tham số & Biên độ tìm kiếm (Khoảng) & Ý nghĩa điều chỉnh \\
+\texttt{max\_depth} & $[3, 8]$ & Độ sâu tối đa của cây, chống học vẹt (overfitting) \\
+\texttt{learning\_rate} ($\eta$) & $[0.01, 0.3]$ & Tốc độ học mô hình (kích thước bước cập nhật) \\
+\texttt{n\_estimators} & $[100, 400]$ & Số lượng cây quyết định tối đa được tạo ra \\
+\texttt{subsample} & $[0.6, 1.0]$ & Tỷ lệ lấy mẫu ngẫu nhiên cho số hàng (dữ liệu dòng) \\
+\texttt{colsample\_bytree} / \newline \texttt{feature\_fraction} & $[0.6, 1.0]$ & Tỷ lệ lấy mẫu đặc trưng cho từng cây \\
+\end{tblr}
+\end{table}
+
+Chi tiết các tham số được đưa vào không gian tìm kiếm bao gồm:
 \begin{itemize}
     \item \textbf{learning\_rate ($\eta$):} Điều chỉnh tốc độ học (bước nhảy) của mô hình, giúp tìm điểm cân bằng giữa tốc độ hội tụ và độ chính xác.
-    \item \textbf{max\_depth \& num\_leaves:} Quản lý độ phức tạp cấu trúc cây, đóng vai trò là rào chắn quan trọng nhất để ngăn chặn tình trạng mô hình học vẹt (Overfitting) từ dữ liệu huấn luyện gốc.
-    \item \textbf{subsample \& colsample\_bytree:} Tỷ lệ lấy mẫu con ngẫu nhiên đối với các hàng (data points) và cột (features). Cơ chế ngẫu nhiên hóa này giúp giảm phương sai (variance) của mô hình và ngăn thuật toán bị kẹt tại các điểm cực tiểu địa phương (Local Minima).
+    \item \textbf{max\_depth \& n\_estimators:} Quản lý độ phức tạp cấu trúc cây, đóng vai trò là rào chắn quan trọng nhất để ngăn chặn tình trạng mô hình học vẹt (Overfitting) từ dữ liệu gốc.
+    \item \textbf{subsample \& colsample\_bytree / feature\_fraction:} Tỷ lệ lấy mẫu con ngẫu nhiên đối với các hàng (data points) và cột (features). Cơ chế ngẫu nhiên hóa này giúp giảm phương sai (variance) của mô hình. Trong đó XGBoost sử dụng \texttt{colsample\_bytree}, LightGBM tối ưu bằng tính năng tương đương là \texttt{feature\_fraction}.
 \end{itemize}
 
 \section{Đánh giá Hiệu năng và Khả năng Giải thích của Mô hình (Metrics \& Explainable AI)}
