@@ -3,22 +3,8 @@ __pycache__/
 *.py[cod]
 *$py.class
 
-# Virtual environment
-venv/
-.env/
+outputs/**
 
-# VSCode
-.vscode/
-
-# Jupyter Notebook
-.ipynb_checkpoints/
-
-# Logs & temp
-*.log
-tmp/
-
-# OS files
-.DS_Store
 
 *.aux
 *.log
