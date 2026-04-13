@@ -129,6 +129,16 @@ Mặc dù mô hình đạt kết quả tốt, vẫn tồn tại một số hạn
 
 \end{itemize}
 
+\section{Tài Nguyên Mã Nguồn Mở (Source Code)}
+
+Để đảm bảo tính minh bạch, khả năng tái lập (reproducibility) và đóng góp cho cộng đồng học thuật, toàn bộ mã nguồn của dự án này --- bao gồm các quy trình tiền xử lý dữ liệu, huấn luyện mô hình, tinh chỉnh siêu tham số và kịch bản đánh giá --- đều được mã nguồn mở công khai.
+
+\begin{itemize}
+    \item \textbf{Kho lưu trữ GitHub:} \url{https://github.com/binh2308/credit-risk-scoring}
+    \item \textbf{Ngôn ngữ \& Công nghệ lõi:} Python 3.10+, Scikit-learn, XGBoost, LightGBM, Optuna, SHAP.
+    \item \textbf{Hướng dẫn sử dụng:} Tại kho lưu trữ có đính kèm tệp \texttt{README.md} cung cấp đầy đủ hướng dẫn cài đặt môi trường độc lập (thông qua \texttt{requirements.txt}) và thực thi đường ống (pipeline) tự động để tái tạo lại toàn bộ kết quả của báo cáo này.
+\end{itemize}
+
 \section{Kết Luận Cuối}
 
 Qua dự án này, chúng tôi đã xây dựng một mô hình \textbf{dự báo rủi ro tín dụng hiệu quả}, trong đó XGBoost Tuned là lựa chọn nổi bật nếu ưu tiên ROC-AUC và Recall tối đa, còn LightGBM Tuned là phương án phù hợp nếu ưu tiên F1 cân bằng và tốc độ production. Mô hình không chỉ đạt độ chính xác tốt mà còn cung cấp \textbf{feature importance rõ ràng}, giúp team quản lý rủi ro hiểu được các yếu tố chính gây ra vỡ nợ. Kỹ nghệ đặc trưng (\textit{Feature Engineering}) tỏ rõ giá trị, với \texttt{late\_payment\_count} chiếm 33.58\% tầm quan trọng trong mô hình tốt nhất --- chứng minh rằng \textit{\textbf{domain knowledge}} kết hợp với \textit{\textbf{machine learning}} là cách tiếp cận đúng cho các bài toán tài chính.
