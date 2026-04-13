@@ -29,17 +29,16 @@
 \contentsline {section}{\numberline {3.4}Các Metrics Đánh Giá}{8}{section.3.4}%
 \contentsline {chapter}{\numberline {4}KẾT QUẢ VÀ THẢO LUẬN}{9}{chapter.4}%
 \contentsline {section}{\numberline {4.1}Mô hình Boosting và Tối ưu hóa Optuna}{9}{section.4.1}%
-\contentsline {section}{\numberline {4.2}Đánh giá và So sánh hiệu năng}{9}{section.4.2}%
-\contentsline {subsection}{\numberline {4.2.1}Tối ưu hóa siêu tham số }{9}{subsection.4.2.1}%
-\contentsline {subsection}{\numberline {4.2.2}Nhận xét về kết quả}{10}{subsection.4.2.2}%
-\contentsline {section}{\numberline {4.3}Phân tích Độ Quan Trọng của Đặc Trưng (Feature Importance)}{11}{section.4.3}%
-\contentsline {subsection}{\numberline {4.3.1}Nhận Xét Chi Tiết}{12}{subsection.4.3.1}%
-\contentsline {section}{\numberline {4.4}Ma trận nhầm lẫn (Confusion Matrix)}{12}{section.4.4}%
-\contentsline {chapter}{\numberline {5}KẾT LUẬN}{13}{chapter.5}%
-\contentsline {section}{\numberline {5.1}Các Kết Quả Chính}{13}{section.5.1}%
-\contentsline {section}{\numberline {5.2}Ứng Dụng Thực Tế}{13}{section.5.2}%
-\contentsline {subsection}{\numberline {5.2.1}Khuyến Nghị Chi Tiết}{14}{subsection.5.2.1}%
-\contentsline {section}{\numberline {5.3}Giới Hạn và Hạn Chế}{14}{section.5.3}%
-\contentsline {section}{\numberline {5.4}Hướng Phát Triển Tiếp Theo}{14}{section.5.4}%
-\contentsline {section}{\numberline {5.5}Kết Luận Cuối}{15}{section.5.5}%
-\contentsline {chapter}{TÀI LIỆU THAM KHẢO}{16}{chapter*.19}%
+\contentsline {subsection}{\numberline {4.1.1}Tối ưu hóa siêu tham số }{9}{subsection.4.1.1}%
+\contentsline {section}{\numberline {4.2}Đánh giá và So sánh hiệu năng}{10}{section.4.2}%
+\contentsline {subsection}{\numberline {4.2.1}Phân tích chuyên sâu và Khuyến nghị triển khai}{11}{subsection.4.2.1}%
+\contentsline {section}{\numberline {4.3}Phân tích Độ Quan Trọng của Đặc Trưng (Feature Importance)}{12}{section.4.3}%
+\contentsline {section}{\numberline {4.4}Ma trận nhầm lẫn (Confusion Matrix)}{14}{section.4.4}%
+\contentsline {chapter}{\numberline {5}KẾT LUẬN}{15}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Các Kết Quả Chính}{15}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Ứng Dụng Thực Tế}{15}{section.5.2}%
+\contentsline {subsection}{\numberline {5.2.1}Khuyến Nghị Chi Tiết}{16}{subsection.5.2.1}%
+\contentsline {section}{\numberline {5.3}Giới Hạn và Hạn Chế}{16}{section.5.3}%
+\contentsline {section}{\numberline {5.4}Hướng Phát Triển Tiếp Theo}{16}{section.5.4}%
+\contentsline {section}{\numberline {5.5}Kết Luận Cuối}{17}{section.5.5}%
+\contentsline {chapter}{TÀI LIỆU THAM KHẢO}{18}{chapter*.18}%
