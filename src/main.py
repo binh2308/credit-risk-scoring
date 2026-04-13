@@ -137,10 +137,10 @@ def main():
     plot_confusion(y_test, y_pred_lgb_best, "confusion_lgb_tuned.png", "LightGBM (Tuned)")
     
     # Generate feature importance plot from best model (LightGBM Tuned)
-    plot_feature_importance(lgb_best_model, X_train, "feature_importance_best.png")
+    plot_feature_importance(xgb_best_model, X_train, "feature_importance_best.png")
 
     print("\n===== SHAP EXPLAINABILITY =====")
-    shap_path = generate_shap_summary(lgb_best_model, X_train, filename="shap_summary_lgb_best")
+    shap_path = generate_shap_summary(xgb_best_model, X_train, filename="shap_summary_xgb_best")
     print(f"Saved SHAP summary to: {shap_path}")
 
     from evaluation.compare import OUTPUT_PATH

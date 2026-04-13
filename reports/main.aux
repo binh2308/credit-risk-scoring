@@ -1,8 +1,7 @@
 \relax 
-\providecommand\babel@aux[2]{}
+\providecommand \babel@aux [2]{\global \let \babel@toc \@gobbletwo }
 \@nameuse{bbl@beforestart}
 \catcode `"\active 
-\providecommand*\new@tpo@label[2]{}
 \providecommand\hyper@newdestlabel[2]{}
 \providecommand\HyField@AuxAddToFields[1]{}
 \providecommand\HyField@AuxAddToCoFields[2]{}
@@ -12,22 +11,94 @@
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
 \@writefile{toc}{\contentsline {section}{\numberline {1.1}Lý do thực hiện đề tài}{1}{section.1.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {1.2}Dataset nghiên cứu}{1}{section.1.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {chapter}{\numberline {2}PHƯƠNG PHÁP NGHIÊN CỨU}{2}{chapter.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {1.2}Mục tiêu nghiên cứu}{1}{section.1.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {1.3}Phạm vi và Giới hạn}{2}{section.1.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{\numberline {2}TỔNG QUAN DỮ LIỆU VÀ PHÂN TÍCH KHÁM PHÁ (EDA)}{3}{chapter.2}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\@writefile{toc}{\contentsline {section}{\numberline {2.1}Tiền xử lý và Làm sạch dữ liệu}{2}{section.2.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {2.2}Tạo đặc trưng (Feature Engineering)}{2}{section.2.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {2.3}Xử lý dữ liệu mất cân bằng}{2}{section.2.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {chapter}{\numberline {3}KẾT QUẢ VÀ THẢO LUẬN}{3}{chapter.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {2.1}Mô tả tập dữ liệu}{3}{section.2.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {2.2}Phân tích phân phối và Tương quan}{3}{section.2.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.2.1}Phân phối biến mục tiêu và Mất cân bằng Lớp (Class Imbalance)}{3}{subsection.2.2.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {2.1}{\ignorespaces Phân phối biến mục tiêu (Vỡ nợ vs. Không vỡ nợ) - Class Imbalance rất đáng kề}}{3}{figure.caption.4}\protected@file@percent }
+\providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
+\newlabel{fig:class_dist}{{2.1}{3}{Phân phối biến mục tiêu (Vỡ nợ vs. Không vỡ nợ) - Class Imbalance rất đáng kề}{figure.caption.4}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.2.2}Tương quan giữa Các Biến và Vỡ nợ}{4}{subsection.2.2.2}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {2.1}{\ignorespaces Top 10 biến có tương quan cao nhất với DEFAULT}}{4}{table.caption.5}\protected@file@percent }
+\newlabel{tab:top_corr}{{2.1}{4}{Top 10 biến có tương quan cao nhất với DEFAULT}{table.caption.5}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.2.3}Đa Cộng Tuyến (Multicollinearity) - BILL\_AMT và PAY\_AMT}{4}{subsection.2.2.3}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {2.2}{\ignorespaces Ma trận tương quan giữa những biến chính - Thấy rõ đa cộng tuyến trong BILL\_AMT và PAY\_AMT}}{5}{figure.caption.6}\protected@file@percent }
+\newlabel{fig:corr_heatmap}{{2.2}{5}{Ma trận tương quan giữa những biến chính - Thấy rõ đa cộng tuyến trong BILL\_AMT và PAY\_AMT}{figure.caption.6}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {2.3}Phân tích Các Biến Số Học (Numerical Variables)}{5}{section.2.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.3.1}Thống Kê Mô Tả (Descriptive Statistics)}{5}{subsection.2.3.1}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {2.2}{\ignorespaces Thống kê mẫu của những biến chính}}{5}{table.caption.7}\protected@file@percent }
+\newlabel{tab:desc_stats}{{2.2}{5}{Thống kê mẫu của những biến chính}{table.caption.7}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.3.2}Phân Phối và Outliers}{5}{subsection.2.3.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {2.3}{\ignorespaces Phân phối của các biến số học chính (Boxplot) - có outliers trong BILL\_AMT và PAY\_AMT}}{5}{figure.caption.8}\protected@file@percent }
+\newlabel{fig:numerical_dist}{{2.3}{5}{Phân phối của các biến số học chính (Boxplot) - có outliers trong BILL\_AMT và PAY\_AMT}{figure.caption.8}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {2.4}Phân Tích Các Biến Phân Loại (Categorical Variables)}{5}{section.2.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.4.1}Phân Phối Biến Giới Tính (SEX)}{5}{subsection.2.4.1}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {2.3}{\ignorespaces Phân phối của biến SEX (Giới tính)}}{5}{table.caption.9}\protected@file@percent }
+\newlabel{tab:sex_dist}{{2.3}{5}{Phân phối của biến SEX (Giới tính)}{table.caption.9}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.4.2}Phân Phối Biến Học Vấn (EDUCATION)}{6}{subsection.2.4.2}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {2.4}{\ignorespaces Phân phối của biến EDUCATION (Trình độ học vấn)}}{6}{table.caption.10}\protected@file@percent }
+\newlabel{tab:edu_dist}{{2.4}{6}{Phân phối của biến EDUCATION (Trình độ học vấn)}{table.caption.10}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.4.3}Phân Phối Biến Tình trạng Hôn Nhân (MARRIAGE)}{6}{subsection.2.4.3}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {2.5}{\ignorespaces Phân phối của biến MARRIAGE (Tình trạng hôn nhân)}}{6}{table.caption.11}\protected@file@percent }
+\newlabel{tab:marriage_dist}{{2.5}{6}{Phân phối của biến MARRIAGE (Tình trạng hôn nhân)}{table.caption.11}{}}
+\@writefile{toc}{\contentsline {chapter}{\numberline {3}PHƯƠNG PHÁP NGHIÊN CỨU}{7}{chapter.3}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\@writefile{toc}{\contentsline {section}{\numberline {3.1}Huấn luyện mô hình}{3}{section.3.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {3.2}Đánh giá kết quả}{3}{section.3.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {chapter}{\numberline {4}KẾT LUẬN}{4}{chapter.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {3.1}Tiền Xử Lý Dữ Liệu và Làm Sạch}{7}{section.3.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.1.1}Xử Lý Biến Định Danh}{7}{subsection.3.1.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.1.2}Xử Lý Trạng Thái Thanh Toán - PAY\_0 đến PAY\_6}{7}{subsection.3.1.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {3.2}Kỹ Nghệ Đặc Trưng Chuyên Sâu (Feature Engineering)}{7}{section.3.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.2.1}1. Tỷ Lệ Sử Dụng Tín Dụng (Credit Utilization Ratio)}{7}{subsection.3.2.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.2.2}2. Tỷ Lệ Thanh Toán (Payment Ratio)}{8}{subsection.3.2.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.2.3}3. Tần Suất Chậm Nợ (Late Payment Count)}{8}{subsection.3.2.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {3.3}Giải Quyết Mất Cân Bằng Dữ Liệu bằng SMOTE}{8}{section.3.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.3.1}SMOTE (Synthetic Minority Over-sampling Technique)}{8}{subsection.3.3.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {3.4}Các Metrics Đánh Giá}{8}{section.3.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{\numberline {4}KẾT QUẢ VÀ THẢO LUẬN}{9}{chapter.4}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\newlabel{LastPage}{{}{4}{}{page.4}{}}
-\xdef\lastpage@lastpage{4}
-\xdef\lastpage@lastpageHy{4}
-\gdef \@abspage@last{8}
+\@writefile{toc}{\contentsline {section}{\numberline {4.1}Mô hình Boosting và Tối ưu hóa Optuna}{9}{section.4.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {4.2}Đánh giá và So sánh hiệu năng}{9}{section.4.2}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {4.1}{\ignorespaces So sánh hiệu năng giữa các mô hình trên tập kiểm thử}}{9}{table.caption.12}\protected@file@percent }
+\newlabel{tab:results}{{4.1}{9}{So sánh hiệu năng giữa các mô hình trên tập kiểm thử}{table.caption.12}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2.1}Tối ưu hóa siêu tham số }{9}{subsection.4.2.1}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {4.2}{\ignorespaces So sánh bộ siêu tham số trước và sau khi tối ưu hóa}}{10}{table.caption.13}\protected@file@percent }
+\newlabel{tab:params}{{4.2}{10}{So sánh bộ siêu tham số trước và sau khi tối ưu hóa}{table.caption.13}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2.2}Nhận xét về kết quả}{10}{subsection.4.2.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {4.1}{\ignorespaces Đường cong ROC so sánh các mô hình}}{11}{figure.caption.14}\protected@file@percent }
+\newlabel{fig:roc_curve_all}{{4.1}{11}{Đường cong ROC so sánh các mô hình}{figure.caption.14}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {4.3}Phân tích Độ Quan Trọng của Đặc Trưng (Feature Importance)}{11}{section.4.3}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {4.3}{\ignorespaces Top 10 Đặc Trưng Theo Feature Importance}}{11}{table.caption.15}\protected@file@percent }
+\newlabel{tab:feature_imp}{{4.3}{11}{Top 10 Đặc Trưng Theo Feature Importance}{table.caption.15}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.2}{\ignorespaces Biểu đồ Feature Importance - late\_payment\_count chiếm ưu thế}}{12}{figure.caption.16}\protected@file@percent }
+\newlabel{fig:feature_importance_chart}{{4.2}{12}{Biểu đồ Feature Importance - late\_payment\_count chiếm ưu thế}{figure.caption.16}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.3.1}Nhận Xét Chi Tiết}{12}{subsection.4.3.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {4.4}Ma trận nhầm lẫn (Confusion Matrix)}{12}{section.4.4}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {4.3}{\ignorespaces Ma trận nhầm lẫn của các mô hình tốt nhất}}{12}{figure.caption.17}\protected@file@percent }
+\newlabel{fig:confusion}{{4.3}{12}{Ma trận nhầm lẫn của các mô hình tốt nhất}{figure.caption.17}{}}
+\@writefile{toc}{\contentsline {chapter}{\numberline {5}KẾT LUẬN}{13}{chapter.5}\protected@file@percent }
+\@writefile{lof}{\addvspace {10\p@ }}
+\@writefile{lot}{\addvspace {10\p@ }}
+\@writefile{toc}{\contentsline {section}{\numberline {5.1}Các Kết Quả Chính}{13}{section.5.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {5.2}Ứng Dụng Thực Tế}{13}{section.5.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.2.1}Khuyến Nghị Chi Tiết}{14}{subsection.5.2.1}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {5.1}{\ignorespaces Khuyến Nghị Model Theo Business Context}}{14}{table.caption.18}\protected@file@percent }
+\newlabel{tab:recommendation}{{5.1}{14}{Khuyến Nghị Model Theo Business Context}{table.caption.18}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {5.3}Giới Hạn và Hạn Chế}{14}{section.5.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {5.4}Hướng Phát Triển Tiếp Theo}{14}{section.5.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {5.5}Kết Luận Cuối}{15}{section.5.5}\protected@file@percent }
+\bibcite{yeh2009}{1}
+\bibcite{smote2002}{2}
+\bibcite{lgb2017}{3}
+\bibcite{xgb2016}{4}
+\bibcite{optuna2019}{5}
+\bibcite{shap2017}{6}
+\@writefile{toc}{\contentsline {chapter}{TÀI LIỆU THAM KHẢO}{16}{chapter*.19}\protected@file@percent }
+\newlabel{LastPage}{{5.5}{16}{Kết Luận Cuối}{page.16}{}}
+\gdef\lastpage@lastpage{16}
+\gdef\lastpage@lastpageHy{16}
+\gdef \@abspage@last{21}
