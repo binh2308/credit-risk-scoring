@@ -9,6 +9,7 @@ This project implements an end-to-end machine learning pipeline for credit risk 
 - **Imbalance Handling**: Using SMOTE (Synthetic Minority Over-sampling Technique) to balance target classes (Default vs. Non-Default).
 - **Automated Tuning**: Bayesian optimization via Optuna to find optimal hyperparameters for LightGBM and XGBoost.
 - **Comprehensive Evaluation**: Comparison between Baseline (Logistic Regression) and Advanced Models using ROC-AUC, F1-Score, and Precision-Recall metrics.
+- **Explainable AI (XAI)**: Model interpretability utilizing SHAP to generate Feature Importance and Directional Impact logic (Summary Plots).
 
 ## 🛠 Technology Stack
 
@@ -17,6 +18,7 @@ This project implements an end-to-end machine learning pipeline for credit risk 
 - **Modeling**: `lightgbm`, `xgboost`, `scikit-learn` (Logistic Regression)
 - **Hyperparameter Tuning**: `optuna`
 - **Visualization**: `matplotlib`, `seaborn`
+- **Explainable AI**: `shap`
 - **Reporting**: `LaTeX` (source files in `reports/`)
 
 ## 📂 Project Structure
@@ -91,5 +93,6 @@ The pipeline evaluates models primarily based on **ROC-AUC** to measure the abil
 
 - **Baseline**: Logistic Regression on original imbalanced data.
 - **Advanced**: XGBoost and LightGBM on SMOTE-balanced data with optimized parameters.
+- **Interpretability**: SHAP value generation for the best-performing model to provide business insights (Directional Analysis).
 
-Detailed metrics and plots can be found in the `outputs/` directory after execution.
+Detailed metrics, SHAP plots, and evaluation charts can be found in the `outputs/` directory after execution. See the `MAPPING_REPORT_TO_CODE.md` file to map technical explanations in the LaTeX report directly to specific scripts in the source code.
