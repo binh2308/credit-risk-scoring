@@ -66,14 +66,19 @@ Mặc dù mô hình đạt kết quả tốt, vẫn tồn tại một số hạn
     
     \item \textbf{Không bao gồm tín hiệu phi cấu trúc:} Model chỉ sử dụng 24 biến cấu trúc từ lịch sử giao dịch. Không có:
     \begin{itemize}
-        \item \textit{Text features} từ hóa đơn, bình luận khách hàng
-        \item \textit{Image features} từ giấy tờ CMND, hợp đồng (OCR)
-        \item \textit{Alternative data} như lịch sử mua hàng online, tín dụng xã hội
+        \item \textit{Text features} từ hóa đơn, bình luận khách hàng.
+        \item \textit{Image features} từ giấy tờ CMND, hợp đồng (OCR).
+        \item \textit{Alternative data} như lịch sử mua hàng online, tín dụng xã hội.
+        \item \textit{Time-series features} từ chuỗi thanh toán theo thời gian.
+        \item \textit{Network features} từ mối quan hệ xã hội (social graph).
+        \item \textit{Behavioral features} từ tương tác app, clickstream.
+        \item \textit{Macroeconomic features} như lãi suất, unemployment rate.
+        \item \textit{Psychometric features} từ khảo sát khách hàng.
     \end{itemize}
     
-    \item \textbf{Biến động thời gian (Concept Drift):} Hành vi khách hàng có thể thay đổi đáng kể qua các đợt (COVID-19, khủng hoảng kinh tế), model không tới được điều chỉnh tự động.
+    \item \textbf{Tính lỗi thời của Dữ liệu:} Tập dữ liệu từ năm 2005 không phản ánh được những thay đổi trong hành vi tiêu dùng hiện đại (như mua trước trả sau - BNPL, ví điện tử) hay các cú sốc kinh tế lớn (như đại dịch COVID-19).
     
-    \item \textbf{Data imbalance}:  Mặc dù SMOTE cải thiện, nhưng tỷ lệ 22\% default vẫn không đại diện hoàn hảo thực tế (một số tổ chức có tỷ lệ default 5-10\%).
+    \item \textbf{Hạn chế của SMOTE}:  Mặc dù SMOTE cải thiện, nhưng tỷ lệ 22\% default vẫn không đại diện hoàn hảo thực tế (một số tổ chức có tỷ lệ default 5-10\%).
     
     \item \textbf{Interpretability vs. Accuracy tradeoff:} Gradient boosting là ``black box'' - khó giải thích hơn Logistic Regression. Regulatory (như Basel III) có thể yêu cầu mô hình giải thích được.
 
@@ -83,7 +88,7 @@ Mặc dù mô hình đạt kết quả tốt, vẫn tồn tại một số hạn
 
 \begin{itemize}
 
-    \item \textbf{Mô hình Deep Learning:} Sử dụng Neural Networks (Dense Networks, TabNet) hoặc LSTM cho dữ liệu time-series thanh toán.
+    \item \textbf{Mô hình Deep Learning:} Sử dụng Neural Networks chuyên dụng cho dữ liệu dạng bảng như TabNet hay NODE để so sánh mức trích xuất đặc trưng tự động với các mô hình cây hoặc LSTM cho dữ liệu time-series thanh toán.
     
     \item \textbf{Multimodal Learning:} Kết hợp dữ liệu cấu trúc + text từ hóa đơn + image từ giấy tờ.
 
@@ -91,7 +96,7 @@ Mặc dù mô hình đạt kết quả tốt, vẫn tồn tại một số hạn
 
     \item \textbf{Online Learning \& Retraining:} Xây dựng pipeline MLOps để:
     \begin{itemize}
-        \item Tái huấn luyện model hằng tháng với dữ liệu mới
+        \item Tái huấn luyện model hằng tháng với dữ liệu mới và cập nhật siêu tham số.
         \item Phát hiện model drift (performance degradation) và alert
         \item A/B testing giữa các phiên bản model
     \end{itemize}
@@ -99,6 +104,8 @@ Mặc dù mô hình đạt kết quả tốt, vẫn tồn tại một số hạn
     \item \textbf{Federated Learning:} Huấn luyện trên dữ liệu của nhiều ngân hàng mà giữ được privacy.
     
     \item \textbf{Xử lý Imbalance Nâng Cao:} Thử các kỹ thuật khác như ADASYN, Borderline-SMOTE, hoặc cost-sensitive learning.
+
+    \item \textbf{Tối ưu hóa đa mục tiêu (Multi-objective Optimization):} Thay vì chỉ tối ưu hóa để tăng độ chính xác hay ROC, AUC có thể thiết kế hàm mục tiêu gắn liền với lợi nhuận kinh doanh (tối đa hóa số tiền thu về và giảm thiểu chi phí nợ xấu mất đi).
 
 \end{itemize}
 
