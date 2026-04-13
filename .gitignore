@@ -19,3 +19,14 @@ tmp/
 
 # OS files
 .DS_Store
+
+*.aux
+*.log
+*.out
+*.toc
+*.lof
+*.lot
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+*.pdf
