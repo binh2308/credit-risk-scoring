@@ -1,4 +1,21 @@
-.venv/
-venv/
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
 
-outputs/**
+# Virtual environment
+venv/
+.env/
+
+# VSCode
+.vscode/
+
+# Jupyter Notebook
+.ipynb_checkpoints/
+
+# Logs & temp
+*.log
+tmp/
+
+# OS files
+.DS_Store
