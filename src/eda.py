@@ -171,6 +171,61 @@ def correlation_analysis(df):
                 if abs(corr_value) > threshold:
                     print(f"{col1} - {col2}: {corr_value:.4f}")
 
+    # ===== Correlation analysis for PAY_* and PAY_AMT* =====
+    payment_status_cols = ["PAY_0", "PAY_2", "PAY_3", "PAY_4", "PAY_5", "PAY_6"]
+    payment_amt_cols = ["PAY_AMT1", "PAY_AMT2", "PAY_AMT3", "PAY_AMT4", "PAY_AMT5", "PAY_AMT6"]
+
+    available_payment_status_cols = [col for col in payment_status_cols if col in df.columns]
+    available_payment_amt_cols = [col for col in payment_amt_cols if col in df.columns]
+
+    selected_payment_cols = available_payment_status_cols + available_payment_amt_cols
+
+    if len(selected_payment_cols) >= 2:
+        payment_corr = df[selected_payment_cols].corr()
+
+        plt.figure(figsize=(10, 8))
+        sns.heatmap(payment_corr, annot=True, cmap="coolwarm", fmt=".2f")
+        plt.title("Correlation Heatmap of PAY_* and PAY_AMT* Features")
+        plt.tight_layout()
+        plt.savefig(OUTPUT_DIR / "pay_and_pay_amt_heatmap.png", dpi=300)
+        plt.show()
+
+        threshold = 0.50
+        print("\n===== HIGHLY CORRELATED PAY_* / PAY_AMT* PAIRS =====")
+        found_pair = False
+
+        for i in range(len(selected_payment_cols)):
+            for j in range(i + 1, len(selected_payment_cols)):
+                col1 = selected_payment_cols[i]
+                col2 = selected_payment_cols[j]
+                corr_value = df[col1].corr(df[col2])
+
+                if abs(corr_value) > threshold:
+                    print(f"{col1} - {col2}: {corr_value:.4f}")
+                    found_pair = True
+
+        if not found_pair:
+            print(f"Khong co cap nao co |correlation| > {threshold}")
+
+    # ===== Correlation of PAY_* and PAY_AMT* with target =====
+    if TARGET in df.columns:
+        payment_target_cols = selected_payment_cols + [TARGET]
+        payment_target_corr = df[payment_target_cols].corr()[TARGET].drop(TARGET)
+        payment_target_corr = payment_target_corr.sort_values(key=lambda x: abs(x), ascending=False)
+
+        print("\n===== CORRELATION OF PAY_* / PAY_AMT* WITH TARGET =====")
+        print(payment_target_corr)
+
+        plt.figure(figsize=(8, 5))
+        sns.barplot(x=payment_target_corr.index, y=payment_target_corr.values)
+        plt.title("Correlation of PAY_* and PAY_AMT* with Target")
+        plt.xlabel("Features")
+        plt.ylabel("Correlation with Target")
+        plt.xticks(rotation=45)
+        plt.tight_layout()
+        plt.savefig(OUTPUT_DIR / "pay_and_pay_amt_vs_target.png", dpi=300)
+        plt.show()
+
     if TARGET in corr.columns:
         target_corr = corr[TARGET].drop(TARGET).sort_values(key=lambda x: abs(x), ascending=False)
         print("\n===== TOP CORRELATION WITH TARGET =====")
@@ -183,10 +238,10 @@ def main():
     Muốn xem phần nào thì bỏ comment phần đó, vì có thể sẽ tốn thời gian chạy nếu chạy hết tất cả các hàm EDA.
     '''
     # basic_overview(df)   ## Mô tả tổng quan về dữ liệu, bao gồm shape, head, dtypes, missing values, và thống kê mô tả.
-    # plot_target_distribution(df)   ## Phân tích biến mục tiêu
-    # analyze_categorical_features(df)      ##  Phân tích các biến quan trọng
-    # analyze_numeric_features(df)     ## Các biến numeric nên xem histogram / boxplot
-    # correlation_analysis(df)     ## Heatmap tương quan tổng thể và heatmap riêng cho các biến BILL_AMT
+    #plot_target_distribution(df)   ## Phân tích biến mục tiêu
+    #analyze_categorical_features(df)      ##  Phân tích các biến quan trọng
+    #analyze_numeric_features(df)     ## Các biến numeric nên xem histogram / boxplot
+    #correlation_analysis(df)     ## Heatmap tương quan tổng thể và heatmap riêng cho các biến BILL_AMT
 
 
 if __name__ == "__main__":
